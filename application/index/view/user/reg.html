@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css"/>
+  <link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css"/>
+	<link rel="stylesheet" type="text/css" href="__HOME_CSS__/style.css"/>
+  <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style2.css"/>
+  <link rel="stylesheet" type="text/css" href="__HOME_JS__/layui/css/layui.css"/>
+  <title>参会去？- 注册</title>
+  <link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+<!--[if lt IE 9]><script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script><![endif]-->
+</head>
+<body style="background: #f7f8fb;">
+{include file="Public:nav" /}
+	<!--注册-->
+	<div class="bd-login">
+		<h1 class="login-tit">
+			注册
+		</h1>
+		<div class="login-box clearfix">
+			<div class="login-item">
+					<input type="hidden" name="role" value="{$rid}" id="rid"/>
+					<input type="hidden" name="nickname" value="{$nickname}" id="nickname"/>
+					<div class="login-input" id="reg-phone">
+						<input type="text" value="" name="mobile" placeholder="填写手机号码" id="phone" class="reg"/>
+					</div>
+					<div class="login-input item-messCode clearfix" id="reg-code">
+						<input type="text" value="" name="code" placeholder="填写验证码" class="reg-cod" id="code"/>
+						<a href="javascript:void(0);" class="reg-sendCode" onclick="sends.send();" id="sendCode">发送验证码</a>
+					</div>
+					<div class="login-input" id="reg-pwd">
+						<input type="password" value="" name="password" id="pwd"
+							   placeholder="设置密码"/>
+					</div>
+				    <div class="login-input" id="embed-captcha"></div>
+					<div class="item-box">
+						<label class="remeber">
+                            <input type="checkbox" checked="checked" />
+                            <span>注册成功后，代表您同意我们的<a href="#">服务条款</a></span>
+                        </label>
+						<a href="#" class="login-forget">忘记密码？</a>
+					</div>
+					<button class="login-btn" id="regist-submit">提交</button>
+			</div>
+			<div class="login-other">
+				<p>或使用以下账号登录：</p>
+				<a href="#" class="a-weixin">微信登录</a>
+				<a href="#" class="a-weibo">微博登录</a>
+				<a href="{:url('Base/qqlogin')}" class="a-qq">QQ登录</a>
+			</div>
+		</div>
+	</div>
+<div class="bd-box" style="height:55px"></div>
+{include file="Public:footer" /}
+<script src="__HOME_JS__/login.js" type="text/javascript" charset="UTF-8"></script>
+<!-- 引入封装了failback的接口--initGeetest -->
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script>
+    $(function(){
+        function doOk(){
+            $("#regist-submit").attr("disabled", false);
+            $("#regist-submit").attr("style", 'background:#fe693e');
+        }
+        var handlerEmbed = function (captchaObj) {
+            captchaObj.appendTo("#embed-captcha");
+            captchaObj.onSuccess(doOk);
+            captchaObj.onReady(function () {
+                $("#regist-submit").attr("disabled", true);
+                $("#regist-submit").attr("style", 'background:#A79995');
+            });
+        };
+        $.ajax({
+            url: "{:geetest_url()}?t=" + (new Date()).getTime(),
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                initGeetest({
+                    gt: data.gt,
+                    challenge: data.challenge,
+                    product: "float",
+                    offline: !data.success,
+                    width:'100%'
+                }, handlerEmbed);
+
+            }
+        });
+    });
+
+</script>
+</body>

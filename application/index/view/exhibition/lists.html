@@ -1,0 +1,160 @@
+{include file="Public:manager_header" /}
+{include file="Public:manager_top" /}
+{if condition="$Request.cookie.role eq '10' "}
+{include file="Public:manager_side0" /}
+{elseif condition="$Request.cookie.role eq '11' "}
+{include file="Public:manager_side1" /}
+{elseif condition="$Request.cookie.role eq '12' "}
+{include file="Public:manager_side2" /}
+{elseif condition="$Request.cookie.role eq '13' "}
+{include file="Public:manager_side3" /}
+{elseif condition="$Request.cookie.role eq '14' "}
+{include file="Public:manager_side4" /}
+{elseif condition="$Request.cookie.role eq '15' "}
+{include file="Public:manager_side4" /}
+{elseif condition="$Request.cookie.role eq '16' "}
+{include file="Public:manager_side4" /}
+{/if}
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/manager/style.css"/>
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/manager/bootstrap.css"/>
+<link rel="stylesheet" href="__HOME_CSS__/manager/base/jquery.ui.all.css">
+<style media="screen">
+  .no-data{width:100%; background:#fff; clear:both; border:1px solid #cfcfcf; padding: 20px; font-size: 16px; font-weight: bold; color: red}
+</style>
+<!--BEGIN PAGE WRAPPER-->
+ <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <ol class="breadcrumb page-breadcrumb pull-left">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">用户中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                         <li ><a href="#">展会管理</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">展会列表</li>
+                    </ol>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <div class="page-content">
+            <div class="all-box fl" style="width: 100%;">
+            <div class="main-body">
+                <form class="form-inline" action="{:url('exhibition/searchEx')}" method="post">
+                    <div class="form-box">
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">展&nbsp;&nbsp;会&nbsp;&nbsp;名&nbsp;&nbsp;称&nbsp;&nbsp;：</span>
+                            <input class="form-control" name="ex_name"/>
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">展&nbsp;&nbsp;馆&nbsp;&nbsp;名&nbsp;&nbsp;称&nbsp;&nbsp;：</span>
+                            <input class="form-control" name="ex_venues"/>
+                        </div>
+                         <div class="input-group input-box">
+                            <span class="input-group-addon">所&nbsp;&nbsp;属&nbsp;&nbsp;行&nbsp;&nbsp;业&nbsp;&nbsp;：</span>
+                            <select class="form-control" style="width: 238px; float: left;" name="ex_type">
+                                <option value="" class="" selected="selected">-- 请选择 --</option>
+                                {volist name="type" id="tp"}
+                                {if $tp.pid eq 0}
+                                <option label="{$tp.name}" value="{$tp.id}">{$tp.name}</option>
+                                {/if}
+                                {/volist}
+                            </select>
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">开&nbsp;&nbsp;始&nbsp;&nbsp;时&nbsp;&nbsp;间&nbsp;&nbsp;：</span>
+                            <input class="form-control" id="startdate" name="startime"/>
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">结&nbsp;&nbsp;束&nbsp;&nbsp;时&nbsp;&nbsp;间&nbsp;&nbsp;：</span>
+                            <input class="form-control" id="enddate" name="endtime"/>
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">主&nbsp;&nbsp;&nbsp;&nbsp;办&nbsp;&nbsp;&nbsp;&nbsp;方&nbsp;&nbsp;&nbsp;&nbsp;：</span>
+                            <input class="form-control" name="organizer"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary search" style="height: 34px !important;">查询</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <!--<div class="no-data" style="margin-top: 10px;display:none;">没有满足条件的数据，请重新选择查询条件！</div>-->
+                <!--<div class="tableall search"></div>-->
+                <div class="tableall all">
+                    <button type="button" class="btn btn-default btn-sm" style="margin:10px 0 5px 0;" disabled="disabled" id="add">
+                        <span class="glyphicon glyphicon-plus-sign"></span> 添加到我的展会
+                    </button>
+                    <table class="table tablelist table-hover table-responsive table-bordered table-striped" style="width: 98%;">
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <th style="width:40px;">
+                                    <input  type="checkbox" name="selectAll" class="all">
+                                </th>
+                                <th style="width:230px;">展会名称</th>
+                                <th style="width:90px;">展会时间</th>
+                                <th>国家</th>
+                                <th>城市</th>
+                                <th>展馆</th>
+                                <th>行业</th>
+                                <th>主办方</th>
+                                <!--<th>状态</th>-->
+                                <th style="width:190px;">操作</th>
+                            </tr>
+                            {volist name="data_list" id='vo'}
+                            <tr class="ex_detail">
+                                <td style="text-align: center;">
+                                  <?php
+                                        if(in_array($vo['id'],$myex)){
+                                  ?>
+                                    <input class="my_checked" type="checkbox"  name="subcheck" id="{$vo.id}" disabled="disabled">
+                                    <?php
+                                          }else{
+                                    ?>
+                                    <input class="my_checked" type="checkbox"  name="subcheck" id="{$vo.id}" >
+                                    <?php
+                                          }
+                                    ?>
+                                 </td>
+                                <td>{$vo.name}</td>
+                                <td>
+                                    <span>{$vo.startime|date="Y-m-d",###}</span>
+                                    <span>{$vo.endtime|date="Y-m-d",###}</span>
+                                </td>
+                                <td>{if condition="$vo.area eq 0"}{$district[0][$vo.city_id]['country']}{else /}{$district[1][$vo.city_id]['country']}{/if}</td>
+                                <td>{if condition="$vo.area eq 0"}{$district[0][$vo.city_id]['city']}{else
+                                    /}{$district[1][$vo.city_id]['city']}{/if}</td>
+                                <td>{$vo.venues}</td>
+                                <td>{$tpid[$vo.type]}</td>
+                                <td>{$vo.organizer}</td>
+                                <!--<td></td>-->
+                                <td>
+                                    <a href="{:url('detail/index',['id' => $vo['id']])}" class="btn btn-default">查看</a>
+                                    <?php
+                                          if(in_array($vo['id'],$myex)){
+                                    ?>
+                                             <button class="btn btn-primary custom-width" id="{$vo.id}" disabled="true">已添加我的展会</button>
+                                    <?php
+                                          }else{
+                                    ?>
+                                             <button class="btn btn-primary custom-width myex" id="{$vo.id}">添加到我的展会</button>
+                                    <?php
+                                          }
+                                    ?>
+                                </td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                    <!--分页-->
+                    <nav style="text-align: center">{$page}</nav>
+                </div>
+
+            </div>
+
+        </div>
+                <!--END CONTENT-->
+            </div>
+
+       </div>
+{include file="Public:manager_footer" /}
+<script type="text/javascript" src="__HOME_JS__/manager/bootstrap.js" ></script>
+<!--日历控件-->
+<script type="text/javascript" src="__HOME_JS__/manager/jquery.ui.datepicker-zh-CN.js" ></script>
+<script type="text/javascript" src="__HOME_JS__/manager/jquery-ui-1.8.21.custom.min.js" ></script>
+<script type="text/javascript" src="__HOME_JS__/doex.js" ></script>

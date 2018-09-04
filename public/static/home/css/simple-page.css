@@ -1,0 +1,50 @@
+.red-border{ border: 1px solid red; display: inline-block; padding: 5px 15px; position: relative; border-radius: 2px; margin: 10px 20px;}
+.red-border span{ position: absolute; right: -7px; top: -5px; color: red; font-size: 12px;}
+*{
+    margin:0;
+    padding:0;
+}
+.nav-title{
+    font-family: 'Abril Fatface', cursive;
+}
+.navbar-header .nav-title:hover,
+.navbar-header .nav-title:focus{
+    background:#0C1021;
+    color:#000;
+}
+
+.cative{
+    font-family:'Comfortaa', cursive;
+}
+.navbar-collapse .navbar-nav li a:hover,
+.navbar-collapse .navbar-nav li a:focus{
+    color:#000;
+    background:#0C1021;
+}
+.logo-text{
+    display: block;
+    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    color: #ffffff !important;
+}
+a.nav-text{
+    display: block;
+    font-weight: bold;
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    color: #ffffff !important;
+}
+
+#footer {
+    width: 100%;
+    background-color: #2a3b4c;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 1.3;
+    padding: 15px 0;
+    border-top: 1px solid #486aaa;
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    text-shadow: 1px 1px #cad5eb;
+}

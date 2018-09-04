@@ -1,0 +1,501 @@
+{include file="Public:manager_header" /}
+{include file="Public:manager_top" /}
+{if condition="$Request.cookie.role eq '10' "}
+{include file="Public:manager_side0" /}
+{elseif condition="$Request.cookie.role eq '11' "}
+{include file="Public:manager_side1" /}
+{elseif condition="$Request.cookie.role eq '12' "}
+{include file="Public:manager_side2" /}
+{elseif condition="$Request.cookie.role eq '13' "}
+{include file="Public:manager_side3" /}
+{elseif condition="$Request.cookie.role eq '14' "}
+{include file="Public:manager_side4" /}
+{elseif condition="$Request.cookie.role eq '15' "}
+{include file="Public:manager_side4" /}
+{elseif condition="$Request.cookie.role eq '16' "}
+{include file="Public:manager_side4" /}
+{/if}
+<style>
+    .error{
+        color:red;
+    }
+    .my-tag-box dd{
+        border: 1px solid #d9d9d9;
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 5px;
+        position: relative;
+        margin-bottom: 15px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+    .on{
+        background-color: #6dbfff;
+    }
+</style>
+<!--BEGIN PAGE WRAPPER-->
+            <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <ol class="breadcrumb page-breadcrumb pull-left">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">用户中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">用户管理</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">用户信息</li>
+                    </ol>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <div class="page-content">
+                    <div id="page-user-profile" class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3" style="color: #7cb8bb">
+                                    <div class="form-group">
+                                        <div class="text-center mbl">{if condition="$Request.cookie.figureurl_qq_2"}
+                                            <img src="{$Request.cookie.figureurl_qq_2}" style="border: 5px solid #fff; box-shadow: 0 2px 3px rgba(0,0,0,0.25); width: 160px;height: 168px;" class="img-circle" />{else /}
+                                            <img src="__HOME_IMG__/user1.png" style="border: 5px solid #fff; box-shadow: 0 2px 3px rgba(0,0,0,0.25); width: 160px;height: 168px;" class="img-circle" />{/if}
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td width="50%">用户名</td>
+                                                <td><span class="label label-orange">{if condition="$list.username eq '' "}{$list.mobile}{else/}{$list.username}{/if}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">状态</td>
+                                                <td><span class="label label-success">Active</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">级别</td>
+                                                <td><span class="label label-blue"><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">账户类型</td>
+                                                <td><span class="label label-pink">{$list.nickname}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">加入时间</td>
+                                                <td><span class="label label-yellow">{$list.create_time|date='Y-m-d',###}</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-9">
+                                    <ul class="nav nav-tabs ul-edit responsive">
+                                        <li class="active"><a href="#tab-activity" data-toggle="tab"><i class="fa fa-bolt"></i>&nbsp;
+今日头条</a>
+                                        </li>
+                                        <li><a href="#tab-edit" data-toggle="tab"><i class="fa fa-edit"></i>&nbsp;
+账户信息</a>
+                                        </li>
+                                        <li ><a href="#tab-messages" data-toggle="tab"><i class="glyphicon glyphicon-user"></i>&nbsp;
+企业信息</a>
+                                        </li>
+                                    </ul>
+                                    <div id="generalTabContent" class="tab-content">
+                                        <div id="tab-activity" class="tab-pane fade in active">
+                                            <ul class="list-activity list-unstyled">
+                                                <li>
+                                                    <div class="avatar"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/uxceo/48.jpg" class="img-circle" />
+                                                    </div>
+                                                    <div class="body">
+                                                        <div class="desc"><strong class="mrs">Diane Harris</strong>posted a new note
+                                                            <br/><small class="text-muted">1 days ago at 6:18am</small>
+                                                        </div>
+                                                        <div class="content"><a href="#"><strong>Ut enim ad minim veniam</strong></a>
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="tab-edit" class="tab-pane fade">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <div class="tab-content">
+                                                        <div id="tab-profile-setting" class="tab-pane fade in active">
+                                                            <form action="#" class="form-horizontal">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">昵称:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.username}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">性别:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{if condition="$list.gender eq 0"}男{else/}女{/if}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">生日:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.birthday|date="Y/m/d",###}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">QQ:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.qq}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">手机:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.mobile}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">邮箱:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.email}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">城市:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.city}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">备注:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.remark}</span></td>
+                                                                    </tr>
+                                                                    <tr >
+                                                                        <td class="col-xs-3" style="border: 0px;">
+                                                                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i>&nbsp; 编辑</button></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </form>
+                                                        </div>
+                                                        <div id="tab-account-setting" class="tab-pane fade" style="min-height: 350px">
+
+                                                            <form  class="form-horizontal" id="reset-password" method="post">
+                                                                <input type="hidden" name="mobile" value="{$list.mobile}" id="telephone">
+                                                                <div class="form-body" >
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-3 control-label">当前密码</label>
+                                                                        <div class="col-sm-9 controls">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-6">
+                                                                                    <input type="password"  class="form-control" id="initial_password" name="initial_password"/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-3 control-label">验证码</label>
+                                                                        <div class="col-sm-9 controls">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-3">
+                                                                                    <input type="password" id="veriy_code" class="form-control" name="code"/>
+                                                                                </div>
+                                                                                <a href="javascript:void(0);" class="btn btn-default send-code" onclick="sends.send();">获取验证码</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-3 control-label">设置密码</label>
+                                                                        <div class="col-sm-9 controls">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-6">
+                                                                                    <input type="password" placeholder="" class="form-control" id="new_password" name="new_password"/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-3 control-label">确认密码</label>
+                                                                        <div class="col-sm-9 controls">
+                                                                            <div class="row">
+                                                                                <div class="col-xs-6">
+                                                                                    <input type="password" placeholder="" class="form-control" id="confirm_password" name="confirm_password"/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group mbn">
+                                                                        <label class="col-sm-3 control-label"></label>
+                                                                        <div class="col-sm-9 controls">
+                                                                            <button type="submit" class="btn btn-success" id="reset-pwd"><i class="fa fa-save"></i>&nbsp; 提交
+                                                                            </button>&nbsp; &nbsp;<a href="javascript:void(0);" class="btn btn-default empty">取消</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <ul class="nav nav-pills nav-stacked">
+                                                        <li class="active"><a href="#tab-profile-setting" data-toggle="tab"><i class="fa fa-folder-open"></i>&nbsp;
+账户信息</a>
+                                                        </li>
+                                                        <li><a href="#tab-account-setting" data-toggle="tab"><i class="fa fa-cogs"></i>&nbsp;
+密码修改</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tab-messages" class="tab-pane fade">
+                                            <div class="row">
+                                                <div class="col-md-9" >
+                                                    <div class="tab-content" style="background-color: #f8f8f8;min-height: 380px">
+                                                        <div id="tab-messages-setting" class="tab-pane fade in active">
+                                                            <form action="#" class="form-horizontal">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">公司名称:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.company_name}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">公司地址:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.company_address}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">公司电话:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.company_mobile}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">公司传真:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.company_fax}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">公司网址:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">{$list.company_website}</span></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="col-xs-3" style="border: 0px;"><span style="font-size: 15px">从事行业:</span></td>
+                                                                        <td style="border: 0px;"><span style="font-size: 15px">
+                                                                            <dl class="my-tag-box">
+                                                                                    {volist name="trade_info" id="ti"}<dd>{$ti.name}</dd>{/volist}
+                                                                            </dl>
+                                                                                <!--{$list.company_trade}-->
+                                                                        </span></td>
+                                                                    </tr>
+                                                                    <tr >
+                                                                        <td class="col-xs-3" style="border: 0px;">
+                                                                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#editCompany"><i class="fa fa-edit"></i>&nbsp; 编辑</button></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <ul class="nav nav-pills nav-stacked">
+                                                        <li class="active"><a href="#tab-profile-setting" data-toggle="tab"><i class="fa fa-folder-open"></i>&nbsp;
+                                                            企业信息</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+ <!-- 编辑账户模态框（Modal）账户信息 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" style="width: 500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    账户信息-编辑
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form action="{:url('manager/user_info')}"  class="form-horizontal" id="form-edit" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"> 昵称</label>
+                        <div class="col-sm-10 controls">
+                            <input type="text" id="username" name="username" class="form-control" value="{$list.username}" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10 controls">
+                            <div class="radio-list">
+                                <label class="radio-inline">
+                                    {if condition="$list.gender eq 0"}
+                                    <input type="radio" value="0" name="gender"  checked="checked"/>{else/}<input type="radio" value="0" name="gender"/>{/if}&nbsp; 男
+
+                                </label>
+                                <label class="radio-inline">
+                                    {if condition="$list.gender eq 1"}
+                                    <input type="radio" value="1" name="gender" checked="checked"/>
+                                    {else/}<input type="radio" value="1" name="gender"/>{/if}&nbsp; 女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">生日</label>
+                        <div class="col-sm-10 controls">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <input type="text"   class="form-control" id="birthday" name="birthday" value="{$list.birthday|date='Y/m/d',###}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">QQ</label>
+                        <div class="col-sm-10 controls">
+                            <input type="text"  class="form-control" id="qq" name="qq" value="{$list.qq}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">手机</label>
+                        <div class="col-sm-10 controls">
+                            <input type="text" id="mobile" name="mobile" class="form-control" value="{$list.mobile}" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10 controls">
+                            <input id="email" type="text" id="email" name="email" class="form-control"  value="{$list.email}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">城市</label>
+                        <div class="col-sm-10 controls">
+                            <input type="text"  id="city" name="city" class="form-control" value="{$list.city}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10 controls">
+                            <textarea rows="3" class="form-control" id="remark" name="remark" >{$list.remark}</textarea>
+                        </div>
+                    </div>
+                </form>
+                <div class="alert alert-danger infoAlert" id="infoAlert" style="display: none;">
+                    <a href="javascript:void(0);" class="ptAlert close">×</a>
+                    <strong>失败！</strong> <br> <span></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="edit-info">
+                        提交更改
+                    </button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+        <!--END CONTENT-->
+    </div> </div>
+<!-- 编辑账户模态框（Modal）账户信息 -->
+<div class="modal fade" id="editCompany" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="editCompanyLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="editCompanyLabel">
+                    企业信息-编辑
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 450px">
+                <form action="{:url('manager/company_info')}"  class="form-horizontal" id="form-edit-company" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">公司名称</label>
+                        <div class="col-sm-8 controls">
+                            <input type="text" id="company_name" name="company_name" class="form-control" value="{$list.company_name}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">公司地址</label>
+                                <div class="col-sm-8 controls">
+                                    <input type="text" class="form-control" id="company_address" name="company_address" value="{$list.company_address}"/>
+                                </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">公司电话</label>
+                        <div class="col-sm-8 controls">
+                            <input type="text"  class="form-control" id="company_mobile" name="company_mobile" value="{$list.company_mobile}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">公司传真</label>
+                        <div class="col-sm-8 controls">
+                            <input type="text" id="company_fax" name="company_fax" class="form-control" value="{$list.company_fax}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">公司网址</label>
+                        <div class="col-sm-8 controls">
+                            <input  type="text" id="company_website" name="company_website" class="form-control"  value="{$list.company_website}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">从事行业</label>
+                        <div class="col-sm-8 controls">
+                            <button type="button" class="btn btn-success" data-toggle="modal"  data-target="#selectTrade">添加行业</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8 controls">
+                            <dl class="my-tag-box contain">
+                                    {volist name="trade_info" id="ti"}
+                                    <dd id="{$ti.id}">{$ti.name}</dd>
+                                    {/volist}
+                            </dl>
+                        </div>
+                    </div>
+                </form>
+                <div class="alert alert-danger infoAlert-company" id="infoAlert-company" style="display: none;">
+                    <a href="javascript:void(0);" class="ptAlert close">×</a>
+                    <strong>失败！</strong> <br> <span></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="edit-info-company">
+                        提交更改
+                    </button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+        <!--END CONTENT-->
+    </div> </div>
+<!-- 模态框（Modal）行业选择 -->
+<div class="modal fade" id="selectTrade" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="selectTradeLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 700px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="selectTradeLabel">
+                    企业信息-从事行业-选择
+                </h4>
+            </div>
+            <div class="modal-body">
+                <dl class="my-tag-box">
+                        {volist name="category" id="vo"}
+                        <dd parent-id="{$vo.id}" class="category">{$vo.name}</dd>
+                        {/volist}
+                </dl>
+                
+            </div><!-- /.modal-content -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="select-trade">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal -->
+        <!--END CONTENT-->
+    </div> </div>
+
+  {include file="Public:manager_footer" /}
+<script src="__HOME_JS__/manager/public.js"></script>

@@ -1,0 +1,233 @@
+{include file="Public:manager_header" /}
+{include file="Public:manager_top" /}
+{if condition="$Request.cookie.role eq '10' "}
+{include file="Public:manager_side0" /}
+{elseif condition="$Request.cookie.role eq '11' "}
+{include file="Public:manager_side1" /}
+{elseif condition="$Request.cookie.role eq '12' "}
+{include file="Public:manager_side2" /}
+{elseif condition="$Request.cookie.role eq '13' "}
+{include file="Public:manager_side3" /}
+{elseif condition="$Request.cookie.role eq '14' "}
+{include file="Public:manager_side4" /}
+{/if}
+
+<!--BEGIN PAGE WRAPPER-->
+            <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <ol class="breadcrumb page-breadcrumb pull-left">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">用户中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="hidden"><a href="#">用户管理</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">用户信息</li>
+                    </ol>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <div class="page-content">
+                   <main role="main">
+    <div class="mainbox" style="height: 522px; width: 1164px;">
+        <!-- <div class="notice">最新公告：您有10条未读信息</div> -->
+        <span ng-controller="requirementBuildController as ctrl" class="ng-scope">
+    <div class="poz">我的需求 &gt; 展台搭建</div>
+    <div class="mainbody" style="width:99%;">
+        <form class="form-inline ng-pristine ng-valid">
+            <div class="input-group input-medium date-picker input-daterange" data-date-format="yyyy-mm-dd" style="width: 400px;">
+                <span class="input-group-addon">开始时间:</span> 
+                <input ng-model="ctrl.opt.startTime" name="startTime" class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="font-size: 13px;" type="text"> 
+                <span class="input-group-addon">结束时间:</span> 
+                <input ng-model="ctrl.opt.endTime" name="endTime" class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="font-size: 13px;" type="text">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">处理状态:</span> 
+                <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" style="width: 150px" ng-model="ctrl.opt.state">
+                    <option value="">-- 请选择 --</option>
+                    <option value="1">进行中</option>
+                    <option value="2">已完成</option>
+                    <option value="3">已中止</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="ctrl.opt.keyword" placeholder="按关键字模糊查询" style="width: 200px"> 
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" ng-click="ctrl.isPagination=false;ctrl.getRequirements()">查询</button>
+                </span>
+            </div>
+        </form>
+        <!-- 提示 -->
+        <div ng-class="ctrl.tip.css" id="myAlert" class="alert alert-success hide">
+            <a href="http://www.iuexpo.com/admin/requirement/build.html#" class="close" ng-click="ctrl.hideAlert()">×</a> 
+            <strong ng-bind="ctrl.tip.title" class="ng-binding">成功!</strong> 
+            <br> 
+            <span ng-bind="ctrl.tip.message" class="ng-binding">操作成功</span>
+        </div>
+        <div ng-class="ctrl.showDataCss" class="no-data" style="margin-top: 10px;">没有满足条件的数据，请重新选择查询条件！</div>
+        <div style="margin-top: 10px;"></div>
+        <div class="row">
+            <!-- ngRepeat: item in ctrl.builds track by $index -->
+        </div>
+        <div>
+            <!-- ngIf: ctrl.opt.totalRow > ctrl.opt.pageSize -->
+        </div>
+    </div>
+    
+    <!-- 查看派单 -->
+    <div class="modal fade" id="previewAssignModal" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" role="document" style="width: 65%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="ctrl.getRequirements()">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">派单详情</h4>
+                </div>
+                <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        提醒
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>需求提交后，3个工作日内服务商会与您联系进行详细沟通，设计方案并出具商务报价。</li>
+                                        <li>服务商出具方案后，如您对其中某个方案不满意，可以更换其他服务商重新提供方案。</li>
+                                        <li>您的需求提交后，如20个工作日内仍未选择中意的服务商签单，该需求订单将过期关闭，请您在规定时间内选择方案并签单。</li>
+                                        <li>为保证服务质量，每个需求我们仅筛选最多3家优质服务商为您服务。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <span style="color:#FF6600;" class="glyphicon glyphicon-volume-up"></span>
+                                    系统已为您优选<strong><span style="color:red;" class="ng-binding">0家服务商接单</span></strong>,最多只能确认<strong>1</strong>家提供的服务!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <!-- ngRepeat: item in ctrl.assigns track by $index -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-danger" id="assignAlert">
+                    <a href="http://www.iuexpo.com/admin/requirement/build.html#" class="close" ng-click="ctrl.hideAssignAlert()">×</a>
+                    <strong ng-bind="ctrl.tip.title" class="ng-binding">成功!</strong> <br> <span ng-bind="ctrl.tip.message" class="ng-binding">操作成功</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="ctrl.getRequirements()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 查看需求 -->
+    <div class="modal fade" id="previewReqModal" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" role="document" style="width: 65%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">需求详情</h4>
+                </div>
+                <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        展会信息
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6 ng-binding">
+                                            <label class="control-label">名称:</label> 
+                                        </div>
+                                        <div class="col-md-6 ng-binding">
+                                            <label class="control-label">时间:</label>  至 
+                                        </div>
+                                        <div class="col-md-6 ng-binding">
+                                            <label class="control-label">展馆:</label> ()
+                                        </div>
+                                        <div class="col-md-6 ng-binding">
+                                            <label class="control-label">地址:</label> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        联系人信息
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-4 ng-binding">
+                                            <label class="control-label">姓名:</label> 
+                                        </div>
+                                        <div class="col-md-4 ng-binding">
+                                            <label class="control-label">电话:</label> 
+                                        </div>
+                                        <div class="col-md-4 ng-binding">
+                                            <label class="control-label">邮箱:</label> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        需求信息
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-4 ng-binding">
+                                            <label class="control-label">面积:</label>  m<sup>2</sup>
+                                        </div>
+                                        <div class="col-md-4 ng-binding">
+                                            <label class="control-label">楣板:</label> 
+                                        </div>
+                                        <div class="col-md-4 ng-binding">
+                                            <label class="control-label">预算:</label>  <!-- ngIf: ctrl.detail.req.budget !=null -->
+                                        </div>
+                                        <div class="col-md-4 ng-binding">
+                                            <label class="control-label">创建时间:</label> 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label">当前状态:</label> <strong style="color:red;" class="ng-binding"></strong>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="control-label">搭建要求:</label>
+                                            <textarea ng-model="ctrl.detail.req.description" rows="3" class="form-control ng-pristine ng-untouched ng-valid ng-empty" readonly=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</span>
+</div>
+</main>
+                <!--END CONTENT-->
+            </div>
+  {include file="Public:manager_footer" /}

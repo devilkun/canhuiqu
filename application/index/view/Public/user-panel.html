@@ -1,0 +1,22 @@
+<li class="user-panel">
+    <div class="thumb">
+        {if condition="$Request.cookie.figureurl_qq_1"}
+        <img src="{$Request.cookie.figureurl_qq_1}" alt="" class="img-circle" />{else /}
+        <img src="__HOME_IMG__/user1.png" alt="" class="img-circle" />
+        {/if}
+    </div>
+    <div class="info">
+        <p>{if condition="$list.username eq '' "}{$list.mobile}{else/}{$list.username}{/if}</p>
+        <ul class="list-inline list-unstyled">
+            <li><a href="{:url('Manager/index')}" data-hover="tooltip" title="个人信息"><i class="fa fa-user"></i></a>
+            </li>
+            <li><a href="javascript:void(0);" data-hover="tooltip" title="邮件"><i class="fa fa-envelope"></i></a>
+            </li>
+            <li><a href="javascript:void(0);" data-hover="tooltip" title="设置" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a>
+            </li>
+            <li><a href="{:url('User/logout')}" data-hover="tooltip" title="登出"><i class="fa fa-sign-out"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="clearfix"></div>
+</li>

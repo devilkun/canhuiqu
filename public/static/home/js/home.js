@@ -1,0 +1,1 @@
+$(document).ready(function(){var e=$(".mod-meet-lt");e.length&&(e.on("mouseenter","a",function(){var e=$(this),n=e.siblings(".mt-layer");n.fadeIn(200)}),e.on("mouseleave","a",function(){var e=$(this),n=e.siblings(".mt-layer");n.hide()}))});

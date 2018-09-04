@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/reveal.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/sweetalert2.min.css" />
+    <title>{$list.name}</title>
+    <link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <!--[if lt IE 9]><script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script><![endif]-->
+</head>
+
+<body style="background:  #ffffff;">
+    {include file="Public:nav" /}
+    <style>
+        .not-support {
+            font-size: 24px;
+            min-height: 300px;
+            text-align: center;
+            line-height: 300px;
+        }
+        
+        .not-support span {
+            color: #fd715a;
+        }
+    </style>
+    <div class="top">
+        <section class="banner-ny clearfix"></section>
+    </div>
+    <section class="details-titBox">
+        <div class="details-mid">
+            <div class="details-left fl">
+                <a href="{:url('Detail/index',['id' => $list['id']])}">展会详情</a>
+                <a href="{:url('Booth/book',['id' => $list['id']])}" class="left-actvie">展位预定</a>
+                <a href="{:url('Pt/book',['id' => $list['id']])}">随团行程</a>
+                <a href="{:url('CustomizeStroke/book',['id' => $list['id']])}">定制行程</a>
+                <a href="{:url('BoothConstruction/book',['id' => $list['id']])}">展台搭建</a>
+                <a href="{:url('ExhibitsTransportation/book',['id' => $list['id']])}">展品运输</a>
+                <a href="#">展会票务</a>
+            </div>
+            <!-- <p class="fr tel">
+                    热线电话：010-12345678
+                </p> -->
+        </div>
+    </section>
+    <section class="content clearfix">
+        <!--流程-->
+        <div class="bar">
+            <div class="text-yd">
+                <font style="color:#f7f8fb">预订流程</font>
+            </div>
+            <ul class="nav nav-pills nav-justified step step-round" data-step="6">
+                <li>
+                    <a>选择供应商</a>
+                </li>
+                <li>
+                    <a>选择展位类型和面积</a>
+                </li>
+                <li>
+                    <a>填写参展企业信息</a>
+                </li>
+                <li>
+                    <a>选择支付</a>
+                </li>
+                <li>
+                    <a>供应商确认</a>
+                </li>
+                <li>
+                    <a>预定完成</a>
+                </li>
+            </ul>
+        </div>
+        <div class="con-left fl">
+            <div class="zh-box">
+                <h2>{$list.name}({$list.ename})</h2>
+                <p>时间：{$list.startime|date="Y.m.d",###} - {$list.endtime|date="Y.m.d",###}</p>
+                <p>地点：{$district[0][$list['city_id']]['country']} • {$district[0][$list['city_id']]['city']} • {$list.venues}</p>
+            </div>
+            <div class="zh-company clearfix">
+                <div class="company-title">
+                    <div class="tit-01">选择供应商</div>
+                    <div class="tit-02">预定提醒：请尽量选择在线预订，线下交易无法享受市场交易安全保障。</div>
+                </div>
+                {if condition="isset($_COOKIE.worldevents_role) && $_COOKIE.worldevents_role neq 10"}
+                <div class="con-box introduce" style="border:1px solid #ff8a00;margin-top:10px;">
+                    <div class="not-support">
+                        <span style="color: #ff8a00">商家账户暂不支持展位预定服务</span>
+                    </div>
+                </div>
+                {else/}
+                {if condition="count($booth) eq 0"}
+                <div class="con-box introduce" style="border:1px solid #ff8a00;margin-top:10px;">
+                    <div class="not-support">
+                        <span style="color: #ff8a00">该展会暂无供应商提供展位预定服务</span>
+                    </div>
+                </div>
+                {/if} {volist name="booth" id="booth"}
+                <form id="booth_{$booth.id}" action="{:url('booth/contacts')}" method="post" >
+                <input name="ex_id" value="{$booth.ex_id}" type="hidden">
+                <input name="booth_id" value="{$booth.id}" type="hidden">
+                <div class="company-box">
+                    <div class="company-xx">
+                        <div class="company-name">
+                            <span class="fl">{$booth.company}</span> {if condition="$booth.pattern==1"}
+                            <input type="hidden" name="pattern" value="1">
+                            <img src="__HOME_IMG__/online.png" class="fl">{else/}
+                            <input type="hidden" name="pattern" value="0">
+                            <img src="__HOME_IMG__/offline.png" class="fl"> {/if}
+                            <span class="q-wz1">
+                                <a class="data-tips">企业信息</a>
+                                <div class="qy-box" style="display: none;">
+                                    <img src="{$booth.blicense|get_file_path}" style="width: 300px;height: 300px">
+                                </div>
+                            </span>
+
+
+                            <p>咨询电话：{$booth.telephone}</p>
+                        </div>
+                    </div>
+                    <style>
+                        .q-wz1 {
+                            position: relative;
+                            display: inline-block;
+                            font-size: 16px
+                        }
+                        
+                        .qy-box {
+                            position: absolute;
+                            left: 0px;
+                            top: 25px;
+                            padding: 15px;
+                            background-color: #fff;
+                            border: 1px solid #ccc;
+                        }
+                    </style>
+
+                    <div class="company-zh1 clearfix">
+                        {if condition="$booth.pattern==0"}
+                        <li>
+                            <strong>详细说明:</strong> {$booth.describe}
+                        </li>
+                        {else/}
+                        <ul>
+                            <li>
+                                <b>展位类型</b> {if condition="$booth.indoor_price eq 0"}{else /}
+                                <p>室内光地</p>{/if} {if condition="$booth.stand_price eq 0"}{else /}
+                                <p>标准摊位</p>{/if} {if condition="$booth.outdoor_price eq 0"}{else /}
+                                <p>室外光地</p>{/if}
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <b>展位价格</b> {if condition="$booth.indoor_price eq 0"}{else /}
+                                <p><span>￥{$booth.indoor_price}</span> /{$unit[$booth.indoor_cu]}</p>{/if} {if condition="$booth.stand_price eq 0"}{else /}
+                                <p><span>￥{$booth.stand_price}</span> /{$unit[$booth.stand_cu]}</p>{/if} {if condition="$booth.outdoor_price eq 0"}{else /}
+                                <p><span>￥{$booth.outdoor_price}</span> /{$unit[$booth.outdoor_cu]}</p>{/if}
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <b>预订说明</b> {if condition="$booth.indoor_desc eq '' "}{else /}
+                                <p>{$booth.indoor_desc}</p>{/if} {if condition="$booth.stand_desc eq '' "}{else /}
+                                <p>{$booth.stand_desc}</p>{/if} {if condition="$booth.outdoor_desc eq '' "}{else /}
+                                <p>{$booth.outdoor_desc}</p>{/if}
+                            </li>
+                        </ul>
+                        <ul>
+
+                            <li>
+                                <b>预订面积</b> {if condition="$booth.indoor_area eq '' "}{else/}
+                                <select style="width: 100px;height: 25px" class="indoor_area select-area">
+                                    <option selected="selected" value="0">--请选择--</option>
+                                    <?php
+                                                if(strstr($booth['indoor_area'],".")){
+                                                    $arr = explode(".",$booth['indoor_area']);
+                                                    asort($arr);
+                                                    foreach($arr as $value){
+                                            ?>
+                                    <option value="{$value}">{$value}</option>
+
+                                    <?php
+                                                }
+                                             }else{
+                                             ?>
+                                    <option value="{$booth['indoor_area']}">{$booth['indoor_area']}</option>
+                                    <?php
+                                              }
+                                             ?>
+                                </select>
+                                <input style="width: 100px;display:none" class="indoor-other-area" name="indoorArea">&nbsp;&nbsp;<span style="color: blue;">{$unit[$booth.indoor_au]}</span> {/if}
+                            </li>
+
+
+                            <li>
+                                {if condition="$booth.stand_area eq '' "}{else/}
+                                <select style="width: 100px;height: 25px" class="stand_area select-area">
+                                <option selected="selected" value="0">--请选择--</option>
+                                <?php
+                                                if(strstr($booth['stand_area'],".")){
+                                                    $arr = explode(".",$booth['stand_area']);
+                                                    asort($arr);
+                                                    foreach($arr as $value){
+                                ?>
+                                                <option value="{$value}">{$value}</option>
+
+                                <?php
+                                                    }
+
+                                                }else{
+                                ?>
+                                                <option value="{$booth['stand_area']}">{$booth['stand_area']}</option>
+
+                                <?php
+                                                }
+                                ?>
+                            </select>
+                                <input style="width: 100px;display:none" class="stand-other-area" name="StandArea">&nbsp;&nbsp;<span style="color: blue;">{$unit[$booth.stand_au]}</span> {/if}
+                            </li>
+
+
+                            <li>
+                                {if condition="$booth.outdoor_area eq '' "} {else/}
+                                <select style="width: 100px;height: 25px" class="outdoor_area select-area">
+                                    <option selected="selected" value="0">--请选择--</option>
+                                    <?php
+                                                if(strstr($booth['outdoor_area'],".")){
+                                                    $arr = explode(".",$booth['outdoor_area']);
+                                                    asort($arr);
+                                                    foreach($arr as $value){
+                                    ?>
+                                    <option value="{$value}">{$value}</option>
+
+                                    <?php
+                                                    }
+                                                }else{
+                                    ?>
+                                    <option value="{$booth['outdoor_area']}">{$booth['outdoor_area']}</option>
+
+                                    <?php
+                                                }
+                                    ?>
+                                </select>
+                                <input style="width: 100px;display:none" class="outdoor-other-area" name="outdoorArea">&nbsp;&nbsp;<span style="color: blue;">{$unit[$booth.outdoor_au]}</span> {/if}
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="company-zh2 clearfix">
+                        <ul>
+
+                            <li>
+                                {if condition="$booth.is_pt eq 1"}
+                                <strong>是否随团:</strong>
+                                <div class="fl st-radio">
+                                    <label>
+                                    <input type="radio" name="is_pt" value="1" />是
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="is_pt" value="0" checked="checked"/>否
+                                    </label>
+                                    <a href="#">点击查看行程详情</a>
+                                </div>
+                                {/if}
+                            </li>
+
+                            <li>
+                                <strong>展位选择:</strong>
+                                <span style="color: blue">&nbsp;&nbsp;A.</span>&nbsp;&nbsp;<input type="text" name="firstBooth" value="" placeholder="首选" style="width:100px" />
+                                <span style="color: blue">&nbsp;&nbsp;B.</span>&nbsp;&nbsp;<input type="text" name="secondBooth" value="" placeholder="第二选择" style="width:100px" />
+                                <span style="color: blue">&nbsp;&nbsp;C.</span>&nbsp;&nbsp;<input type="text" name="thirdBooth" value="" placeholder="第三选择" style="width:100px" />
+                                <a href="{:url('booth/booth_pictures',['id'=>$booth.booth_pictures])}">点击查看展位图</a>
+                            </li>
+                            <li>
+                                <strong>标摊配置:</strong> {$booth.stand_config}
+                                <a href="{:url('booth/stand_pictures',['id'=>$booth.stand_pictures])}">标展效果图</a>
+                            </li>
+                            <li>
+                                <strong>价格说明:</strong> {if condition="$booth.price_desc eq '' "}<span style="color: red">暂无说明</span>{else/}{$booth.price_desc}{/if}
+                            </li>
+                            <li>
+                                <strong>补贴说明:</strong>
+                                <div class="zh2-box">{if condition="$booth.subsidy_desc eq '' "}<span style="color: red">暂无说明</span>{else/}{$booth.subsidy_desc}{/if}</div>
+                            </li>
+                            <li>
+                                <strong>其他说明:</strong>
+                                <div>{if condition="$booth.subsidy_desc eq '' "}<span style="color: red">暂无说明</span>{else/}{$booth.other_desc}{/if}</div>
+                            </li>
+                        </ul>
+                        {/if}
+                        <ul style="width:210px; float: right;">
+                            <a class='btn btn-info' href="tencent://message/?uin={$booth.qq}">在线联系</a> &nbsp;&nbsp;&nbsp;&nbsp; {if condition="$booth.pattern==0"}<a class='btn btn-danger' href="javascript:void(0);" disabled="disabled">立即预定</a>{else/}
+                            <a class='btn btn-danger book' href="javascript:void(0);" onclick="boothBooking('booth_{$booth.id}')" ex-id="{$booth.ex_id}">立即预定</a>{/if}
+                        </ul>
+                    </div>
+                </div>
+                </form>
+                {/volist}
+                {/if}
+            </div>
+
+        </div>
+
+        <div class="con-right fr" style="margin-top:15px">
+            <div class="right-tit">
+                <p>相关展会</p>
+            </div>
+            {volist name="similar" id="vs"}
+            <div class="right-con">
+                <div class="right-box">
+                    <a href="{:url('detail/index',['id' => $vs['id']])}"><img src="{$vs.picture|get_file_path}" width="100%"></a>
+                </div>
+                <div class="right-text">
+                    <a href="{:url('detail/index',['id' => $vs['id']])}">{$vs.name}</a>
+                    <p>{$vs.startime|date="Y.m.d",###} ~ {$vs.endtime|date="Y.m.d",###}</p>
+                </div>
+            </div>
+            {/volist}
+        </div>
+    </section>
+    </div>
+    <!--弹出窗口js-->
+    {include file="Public:footer" /}
+    <!--<script type="text/javascript" src="__HOME_JS__/jquery.reveal.js"></script>-->
+    <!--进度条-->
+    <script type="text/javascript" src="__HOME_JS__/progressBar.js"></script>
+    <script type="text/javascript" src="__HOME_JS__/sweetalert2.min.js"></script>
+    <!--进度条-->
+    <script type="text/javascript" src="__HOME_JS__/lib.js"></script>
+    <script type="text/javascript" src="__HOME_JS__/fol_nav.js"></script>
+    <!--tab-->
+    <script>
+        $(function() {
+            //企业信息
+            $(".data-tips").hover(function() {
+                $(this).next(".qy-box").show();
+            }, function() {
+                $(this).next(".qy-box").hide();
+            });
+            //预定面积
+            var areaSelectDom = $(".select-area");
+            areaSelectDom.each(function (key, dom) {
+                var dom = $(this), nextVal = dom.next().val();
+                if (nextVal) dom.val(nextVal);
+            });
+            areaSelectDom.on("change", function () {
+                var dom = $(this), val = $(this).val(), nxt = dom.next();
+
+                if (val && isNaN(parseInt(val))) {
+                    nxt.val("");
+                    nxt.show();
+                } else {
+                    nxt.val(val);
+                    nxt.hide();
+                }
+            });
+});
+        //获取Cookie信息
+        function getCookie(name)
+        {
+            var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+            if(arr=document.cookie.match(reg))
+                return unescape(arr[2]);
+            else
+                return null;
+        }
+        var boothBooking = function (form) {
+            var formDom = $("#" + form);
+            var pattern = formDom.find('input[name="pattern"]').val();
+            if(pattern == 1){
+                var inputValueMap = {};
+                formDom.find("input:text").each(function (key, dom) {
+                    inputValueMap[dom.name] = dom.value;
+                });
+                var shouldInputArea = inputValueMap.hasOwnProperty("indoorArea")
+                    || inputValueMap.hasOwnProperty("StandArea")
+                    || inputValueMap.hasOwnProperty("outdoorArea");
+                if (shouldInputArea) {
+                    var matched = inputValueMap.hasOwnProperty("indoorArea") && inputValueMap.indoorArea > 0
+                        || inputValueMap.hasOwnProperty("StandArea") && inputValueMap.StandArea > 0
+                        || inputValueMap.hasOwnProperty("outdoorArea") && inputValueMap.outdoorArea > 0;
+                    if (!matched) {
+                       swal({
+                            text:'<span style="color:red;font-weight:bold">请选择需要预订的面积 !</span>',
+                            timer: 3000,
+                            type:'warning',
+                            showConfirmButton:false,
+                            showCloseButton: true
+                        });
+                        return false;
+                    }else{
+                            $user_id = getCookie('worldevents_user_id');
+                            if($user_id){
+                                      $(formDom).submit();
+                            }else{
+                                      $(location).attr('href','/user/login');
+                            }
+
+                    }
+                }
+
+            }
+        }
+        
+    </script>   
+</body>

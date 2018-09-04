@@ -1,0 +1,204 @@
+<!DOCTYPE>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css" />
+    <link type="text/css" rel="stylesheet" href="__HOME_JS__/manager/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/sweetalert2.min.css" />
+    <title>{$list.name}</title>
+    <link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <!--[if lt IE 9]><script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script><![endif]-->
+</head>
+
+<body style="background: #f7f8fb;">
+{include file="Public:nav" /}
+<div class="top">
+    <section class="banner-ny clearfix"></section>
+</div>
+    <section class="details-titBox">
+        <div class="details-mid">
+            <div class="details-left fl">
+                <a href="#" class="left-actvie">展会详情</a>
+                <a href="{:url('Booth/book',['id' => $list['id']])}">展位预定</a>
+                <a href="{:url('Pt/book',['id' => $list['id']])}">拼团行程</a>
+                <a href="{:url('CustomizeStroke/book',['id' => $list['id']])}">定制行程</a>
+                <a href="{:url('BoothConstruction/book',['id' => $list['id']])}">展台搭建</a>
+                <a href="{:url('ExhibitsTransportation/book',['id' => $list['id']])}">展品运输</a>
+                <a href="#">展会票务</a>
+            </div>
+            <!-- <p class="fr tel">
+                    热线电话：010-12345678
+                </p> -->
+        </div>
+    </section>
+    <section class="content clearfix">
+        <div class="con-left  fl">
+            <div class="reservation con-lb clearfix">
+                <input type="hidden" value="{$list.lat}" id="lat">
+                <input type="hidden" value="{$list.lng}" id="lng">
+                <div class="fl yd-pic"><img src="{$list.picture|get_file_path}" width="326px" height="204px"></div>
+                <div class="fr yd-text">
+                    <h2>{$list.name}</h2>
+                    <p class="yd-time">{$list.startime|date="Y.m.d",###} ~ {$list.endtime|date="Y.m.d",###}</p>
+                    <p class="yd-adress">{$list.venues}</p>
+                    <a href="{:url('Booth/book',['id' => $list['id']])}">预订</a>
+                    {if condition="$is_collect eq 1"}
+                    <a href="javascript:void(0);" ex-id="{$list.id}" disabled>已添加收藏</a> {else/}
+                    <a href="javascript:void(0);" id="collection" ex-id="{$list.id}" onclick="is_collection({$list.id},$(this).attr('id'));">加入收藏</a> {/if}
+                </div>
+            </div>
+            <div class="con-lb zh-details">
+                <p class="xq-text">展会详情</p>
+                <div class="expo-Introduction">
+                    <p class="Introduction-tit expo-jj">展会简介</p>
+                    <div class="Introduction-con">
+                        {$list.content}
+                    </div>
+                </div>
+                <div class="expo-Introduction">
+                    <p class="Introduction-tit expo-fw">展会范围</p>
+                    <div class="scope-con">
+                        {$list.range}
+                    </div>
+                </div>
+                <div class="expo-Introduction">
+                    <p class="Introduction-tit expo-adress">展馆位置</p>
+                    <div id="googleMap" class="con-box map" style="width:913px;height:255px;"></div>
+                </div>
+                <div class="share-platform clearfix">
+                    <div class="share-platform-l">分享：</div>
+                    <div class="share-platform-r">
+                        <div class="bdsharebuttonbox">
+                            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                        </div>
+                        <!-- <div class="share-platform-text">
+                                您可以直接复制短链，分享给朋友，也可直接点击社交平台图标，指定分享。
+                            </div> -->
+                    </div>
+                </div>
+                <p class="bqsm">内容为网络摘抄，仅供参考，如有侵权告知即删除</p>
+            </div>
+        </div>
+        <div class="con-right fr">
+            <div class="right-tit">
+                <p>相关展会</p>
+            </div>
+            {volist name="similar" id="vs"}
+            <div class="right-con">
+                <div class="right-box">
+                    <a href="{:url('detail/index',['id' => $vs['id']])}"><img src="{$vs.picture|get_file_path}" width="100%"></a>
+                </div>
+                <div class="right-text">
+                    <a href="{:url('detail/index',['id' => $vs['id']])}">{$vs.name}</a>
+                    <p>{$vs.startime|date="Y.m.d",###} ~ {$vs.endtime|date="Y.m.d",###}</p>
+                </div>
+            </div>
+            {/volist}
+        </div>
+        <div class="con-right fr">
+            <div class="right-tit">
+                <p>主办方</p>
+            </div>
+            <div class="right-con">{$list.organizer}</div>
+        </div>
+    </section>
+{include file="Public:footer" /}
+<script src="__HOME_JS__/ZeroClipboard.js"></script>
+<script type="text/javascript" src="__HOME_JS__/sweetalert2.min.js"></script>
+<script>
+    $(function() {
+        //跟随导航
+        var nav = $(".details-titBox"); //得到导航对象
+        var win = $(window); //得到窗口对象
+        var sc = $(document); //得到document文档对象。
+        win.scroll(function() {
+            if (sc.scrollTop() >= 360) {
+                nav.addClass("fixednav");
+            } else {
+                nav.removeClass("fixednav");
+            }
+        });
+    });
+    function is_collection(ex_id,status){
+          var id = ex_id;
+          var action = '加入收藏';
+          if(status=="already-collection"){
+               return false;
+          }else{
+              swal({
+                  title: '<i>加入收藏吗?</i>',
+                  type: 'info',
+                  html: '加入收藏后,可以在用户后台'+'<span style="color: #CF7EA9"><i>我的收藏</i></span>'+'中找到它哦..',
+                  showCloseButton: true,
+                  showCancelButton: true,
+                  confirmButtonText:
+                      '<i class="fa fa-thumbs-up"></i> 加进去吧!',
+                  cancelButtonText:
+                      '再看看喽..'
+              }).then(function(isConfirm){
+                      if(isConfirm===true) {
+                          $.post('/detail/collection', {
+                              id: id, action: action
+                          }, function (data) {
+                              if (data.status == "login-none") {
+                                  $(location).attr('href', '/user/login');
+                              }
+                              if (data.status == "add-success") {
+                                  swal(
+                                      '收藏成功!',
+                                      '您已成功加入收藏!',
+                                      'success'
+                                  );
+                                  $('#collection').text('已添加收藏');
+                                  $('#collection').attr('id', 'already-collection');
+                              }
+                          }, 'json');
+                      }
+              });
+          }
+    }
+    //分享url
+    var g_url = window.location.href;
+    $('.share-copy-c input').val(g_url);
+    var clip = new ZeroClipboard(document.getElementById("btnCopy"));
+
+    //分享配置信息
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "分享到新浪微博",
+            "bdMini": "1",
+            "bdMiniList": ["bdxc", "tqf", "douban", "bdhome", "sqq", "thx", "ibaidu", "meilishuo", "mogujie", "diandian", "huaban", "duitang", "hx", "fx", "youdao", "sdo", "qingbiji", "people", "xinhua", "mail", "isohu", "yaolan", "wealink", "ty", "iguba", "fbook", "twi", "linkedin", "h163", "evernotecn", "copy", "print"],
+            "bdPic": "",
+            "bdStyle": "1",
+            "bdSize": "32"
+        },
+        "share": {}
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>
+<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyA5uMFeNxZ45Xqzvm_jawEOU2l0PFJVlSQ&sensor=false"></script>
+<script>
+    function initialize() {
+        var lat = parseFloat(document.getElementById('lat').value);
+        var lng = parseFloat(document.getElementById('lng').value);
+        var mapProp = {
+
+            center: new google.maps.LatLng(lat, lng),
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</body>
+</html>

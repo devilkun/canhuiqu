@@ -1,0 +1,270 @@
+{include file="Public:manager_header" /} {include file="Public:manager_top" /} {if condition="$Request.cookie.role eq '10' "} {include file="Public:manager_side0" /} {elseif condition="$Request.cookie.role eq '11' "} {include file="Public:manager_side1"
+/} {elseif condition="$Request.cookie.role eq '12' "} {include file="Public:manager_side2" /} {elseif condition="$Request.cookie.role eq '13' "} {include file="Public:manager_side3" /} {elseif condition="$Request.cookie.role eq '14' "} {include file="Public:manager_side4"
+/} {elseif condition="$Request.cookie.role eq '15' "} {include file="Public:manager_side4" /} {elseif condition="$Request.cookie.role eq '16' "} {include file="Public:manager_side4" /} {/if}
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/manager/style.css" />
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/manager/bootstrap.css" />
+<link rel="stylesheet" href="__HOME_CSS__/manager/base/jquery.ui.all.css">
+<link href="__HOME_CSS__/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<style media="screen">
+    .no-data {
+        width: 100%;
+        background: #fff;
+        clear: both;
+        border: 1px solid #cfcfcf;
+        padding: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: red
+    }
+</style>
+<!--BEGIN PAGE WRAPPER-->
+<div id="page-wrapper">
+    <!--BEGIN TITLE & BREADCRUMB PAGE-->
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <ol class="breadcrumb page-breadcrumb pull-left">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">用户中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">我的订单</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        </ol>
+        <div class="clearfix"></div>
+    </div>
+    <!--END TITLE & BREADCRUMB PAGE-->
+    <div class="page-content">
+        <div class="all-box fl" style="width: 100%;height:100%">
+            <div class="main-body">
+                <form class="form-inline">
+                    <div class="form-box">
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">开&nbsp;&nbsp;&nbsp;&nbsp;始&nbsp;&nbsp;&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;&nbsp;间&nbsp;&nbsp;：</span>
+                            <input class="form-control" id="startdate" />
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">结&nbsp;&nbsp;&nbsp;&nbsp;束&nbsp;&nbsp;&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;&nbsp;间&nbsp;&nbsp;：</span>
+                            <input class="form-control" id="enddate" />
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">状&nbsp;&nbsp;态&nbsp;&nbsp;：</span>
+                            <select class="form-control" style="width: 238px">
+                                <option value="" class="" selected="selected">-- 请选择 --</option>
+                                <option label="已完成" value="number:1">已完成</option>
+                                <option label="待支付" value="number:2">待支付</option>
+                                <option label="已取消" value="number:3">已取消</option>
+                            </select>
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">展会名称（中文）：</span>
+                            <input class="form-control" id=""   />
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">展会名称（英文）：</span>
+                            <input class="form-control" id="" />
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">订单号：</span>
+                            <input class="form-control" id="" />
+                            <span class="input-group-btn">
+								<button class="btn btn-primary" style="height: 34px">查询</button>
+							</span>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="tableall" style="margin-top: 10px">
+                    <table class="table tablelist table-hover table-responsive table-bordered table-striped" style="width: 100%;text-align: center;">
+                        <tbody>
+                        <tr style="text-align: center;">
+                            <th style="width:120px;">
+                                订单编号
+                            </th>
+                            <th>订单信息</th>
+                            <th>订单金额</th>
+                            <th>下单时间</th>
+                            <th>订单状态</th>
+                            <th>支付方式</th>
+                            <th>操作</th>
+                        </tr>
+                        {volist name="order_list" id="ol"}
+                        <tr >
+                            <td style="vertical-align: middle">{$ol.order_number}</td>
+                            <td style="vertical-align: middle;text-align: left;">
+                                展会信息：{$ol.ex_name}<br />
+                                {if condition="$ol.order_type eq 'book_booth'"}
+                                展位信息：{notempty name="$ol.stand_area"}标准展位{$ol.stand_area|number_format=###, 1}平方米
+                                {/notempty}
+                                {notempty name="$ol.indoor_area"}
+                                室内光地{$ol.indoor_area|number_format=###, 1}平方米
+                                {/notempty}
+                                {notempty name="$ol.outdoor_area"}
+                                室外光地{$ol.outdoor_area|number_format=###, 1}平方米
+                                {/notempty}
+                                {elseif condition="$ol.order_type eq 'book_pt'"/}
+                                拼团信息：111
+                                {/if}
+                            </td>
+                            <td style="vertical-align: middle">{$ol.pay_price|number_format=###, 2}元</td>
+                            <td style="vertical-align: middle">{$ol.create_time|date="Y-m-d H:i:s",###}</td>
+                            <td style="vertical-align: middle">{if condition="$ol.status eq 1"}支付成功{elseif condition="$ol.status eq 2" /}支付待处理{elseif condition="$ol.status eq 3" /}支付已取消{elseif condition="$ol.status eq 4"/}支付待审核{else/}支付超时{/if}</td>
+                            <td style="vertical-align: middle">
+                                {if condition="$ol.pay_method eq 'offline'"}线下支付{/if}
+                            </td>
+                            <td style="vertical-align: middle">
+                                <button type="button" class="btn btn-info custom-width" onclick="preview_order({$ol['order_number']})">查看</button>
+
+                                <!--<button type="button" class="btn btn-success custom-width">支付定金</button>-->
+                                {if condition="$ol.status eq 2 && $ol.pay_method eq 'offline'"}
+                                <button type="button" class="btn btn-success custom-width receipt"  data-toggle="modal"  order-number="{$ol.order_number}">上传付款凭证</button>{/if}
+                                {in name="$ol.status" value="2"}
+                                <button type="button" class="btn btn-error custom-width cancel" order-id="{$ol.order_number}">取消</button>{/in}
+                            </td>
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+                    <!--分页-->
+                    <nav style="text-align: center">{$page}</nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- 编辑账户模态框（Modal）账户信息 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" style="width: 500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    上传付款凭条
+                </h4>
+            </div>
+            <div class="modal-body">
+                <input title="上传图片" multiple="true" name="offline-voucher" id="offline-voucher" type="file">
+                <input type="hidden" name="order_number" id="order_number">
+
+                <!--<div class="alert alert-danger infoAlert" id="infoAlert" style="display: none;">-->
+                <!--<a href="javascript:void(0);" class="ptAlert close">×</a>-->
+                <!--<strong>失败！</strong> <br> <span></span>-->
+                <!--</div>-->
+                <div class="modal-footer" style="margin-top: 10px">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" id="upload-receipt">
+                        提交
+                    </button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+        <!--END CONTENT-->
+    </div> </div>
+{include file="Public:manager_footer" /}
+<script src="__HOME_JS__/fileinput.js" type="text/javascript"></script>
+<script src="__HOME_JS__/fileinput_locale_zh.js" type="text/javascript"></script>
+<!--日历控件-->
+<script type="text/javascript" src="__HOME_JS__/manager/jquery.ui.datepicker-zh-CN.js"></script>
+<script type="text/javascript" src="__HOME_JS__/manager/jquery-ui-1.8.21.custom.min.js"></script>
+<script>
+    $(function() {
+        //demo 1
+        $("#datepicker").datepicker();
+
+        //demo 2
+        $("#startdate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            onSelect: function(selectedDate) {
+                $("#enddate").datepicker("option", "minDate", selectedDate, $.datepicker.regional["zh-CN"]);
+            }
+        });
+        $("#enddate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            onSelect: function(selectedDate) {
+                $("#startdate").datepicker("option", "maxDate", selectedDate, $.datepicker.regional["zh-CN"]);
+            }
+        });
+        $('#offline-voucher').fileinput({
+            language: 'zh',
+            uploadUrl: '/manager/upload_receipt',
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            dropZoneEnabled: true,
+            showCaption: false,
+            showUpload:false,
+            showRemove: true,
+            showClose: true,
+            validateInitialCount: true,
+            layoutTemplates: {
+                footer: '<div class="file-thumbnail-footer">\n{progress} {actions}\n</div>',
+                actionUpload: '',
+                actionZoom: ''
+            },
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+            purifyHtml: true,
+            maxFileCount: 1,
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+            previewSettings: {
+                image: {
+                    width: "380px",
+                    height: "160px"
+                }
+            }
+        });
+    });
+    var order ={
+        'order_number':'',
+    };
+    //预览
+    function preview_order(order_number){
+        var url = '/order/detail?oid='+order_number;
+        $(location).attr('href',url)
+    }
+    $('.receipt').on('click',function(){
+        order.order_number = $(this).attr('order-number');
+        $('#myModal').modal('show');
+    });
+    //上传凭条
+    layui.use('layer', function () {
+        var layer = layui.layer;
+
+        $('#upload-receipt').on('click',function(){
+            //获取凭条图片
+            $("#offline-voucher").fileinput('upload');
+            $('#offline-voucher').on('fileuploaded',function(event,data){
+                var res =data.response;
+                var voucher_id =res.voucher_id;
+                $.post('/manager/saveVoucher',{'voucher_id':voucher_id,'order_number':order.order_number},function(status){
+                    if(status ==1){
+                        layer.msg('付款凭条上传成功!');
+                        location.reload();
+                    }
+                },'json');
+
+            });
+        });
+
+        //清除弹窗原数据
+        $("#myModal").on("hidden.bs.modal", function() {
+            $("#offline-voucher").fileinput("clear");
+        });
+        $(".cancel").on('click',function(){
+            var oi =  $(this).attr('order-id');
+            layer.msg('确定要取消订单吗？',{
+                time: 0 //不自动关闭
+                ,btn: ['是的', '再看看']
+                ,yes: function(index){
+
+                    $.post('/order/cancel_order',{order_id:oi},function(status){
+                        if(status==1){
+                            layer.msg('订单取消成功!');
+                            location.reload();
+                        }
+                    },'json')
+                }
+            });
+        });
+
+    });
+</script>

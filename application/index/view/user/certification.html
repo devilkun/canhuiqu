@@ -1,0 +1,300 @@
+{include file="Public:manager_header" /}
+{include file="Public:manager_top" /}
+{if condition="$Request.cookie.role eq '10' "}
+{include file="Public:manager_side0" /}
+{elseif condition="$Request.cookie.role eq '11' "}
+{include file="Public:manager_side1" /}
+{elseif condition="$Request.cookie.role eq '12' "}
+{include file="Public:manager_side2" /}
+{elseif condition="$Request.cookie.role eq '13' "}
+{include file="Public:manager_side3" /}
+{elseif condition="$Request.cookie.role eq '14' "}
+{include file="Public:manager_side4" /}
+{elseif condition="$Request.cookie.role eq '15' "}
+{include file="Public:manager_side4" /}
+{elseif condition="$Request.cookie.role eq '16' "}
+{include file="Public:manager_side4" /}
+{/if}
+<link rel="stylesheet" href="__HOME_CSS__/manager/base/jquery.ui.all.css">
+<link rel="stylesheet" href="__HOME_CSS__/style.css">
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/bootstrap.min.css"/>
+<!--BEGIN PAGE WRAPPER-->
+<div id="page-wrapper">
+	<!--BEGIN TITLE & BREADCRUMB PAGE-->
+	<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+		<ol class="breadcrumb page-breadcrumb pull-left">
+			<li><i class="fa fa-home"></i>&nbsp;<a href="index.html">用户中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+			<li ><a href="#">账号中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+			<li class="active">服务资质</li>
+		</ol>
+		<div class="clearfix"></div>
+	</div>
+	<!--END TITLE & BREADCRUMB PAGE-->
+		<div class="main-body" style="background: #ededed;">
+			<div class="qualification-box">
+				<ul id="myTab_Info" class="nav nav-tabs" style="float: left;">
+					<li class="active blicense"><a href="#info_1" data-toggle="tab">营业执照</a></li>
+					<li class="opermit"><a href="#info_2" data-toggle="tab">开户许可证</a></li>
+					<li><a href="#info_3" data-toggle="tab">服务资质</a></li>
+				</ul>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#edit-box" style="float:right;">编辑</button>
+			</div>
+			<!--上传资质弹出框-->
+			<div class="modal fade" id="edit-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" style="width: 65%;">
+					<form id="frm">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								&times;
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								服务资质
+							</h4>
+						</div>
+						<div class="modal-body" style="overflow-y: auto; max-height: 400px;">
+							<ul id="myTab" class="nav nav-tabs">
+								<li class="active" ><a href="#tab_1" data-toggle="tab">营业执照</a></li>
+								<li><a href="#tab_2" data-toggle="tab">开户许可证</a></li>
+								<li><a href="#tab_3" data-toggle="tab">公司信息</a></li>
+								<li><a href="#tab_4" data-toggle="tab">智能审核</a></li>
+								<li><a href="#tab_5" data-toggle="tab">服务资质</a></li>
+							</ul>
+							<div class="tab-content edit">
+								
+								<div class="tab-pane active" id="tab_1">
+									<input type="hidden" name="blicense" id="blicense" value="{$data.blicense}">
+									<div class="layui-upload">
+										<button type="button" class="layui-btn" id="test1">上传图片</button>
+										<div class="layui-upload-list">
+											<img class="layui-upload-img"  id="demo1" style="width: 251px;height: 251px;" src="{$data.blicense|get_file_path}">
+											<p id="demoText"></p>
+										</div>
+									</div>
+
+								</div>
+								<div class="tab-pane" id="tab_2">
+									<input type="hidden" name="opermit" id="opermit" value="{$data.opermit}">
+									<div class="layui-upload">
+										<button type="button" class="layui-btn" id="test2">上传图片</button>
+										<div class="layui-upload-list" >
+											<img class="layui-upload-img"  id="demo2" style="width: 251px;height: 251px;" src="{$data.opermit|get_file_path}">
+											<p id="demoText"></p>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab_3">
+									<div class="panel-group">
+										<label class="layui-form-label">公司名称</label>
+										<div class="layui-input-inline" style="width:400px">
+											<input type="text" name="company" autocomplete="off" placeholder="请输入展会名称" class="layui-input"
+												   lay-verify="company"  id="company" value="{$data.company}">
+										</div>
+									</div>
+									<div class="panel-group">
+										<label class="layui-form-label">联系方式</label>
+										<div class="layui-input-inline" style="width:400px">
+											<input type="text" name="telephone" autocomplete="off" placeholder="请输入联系方式" class="layui-input"
+												   lay-verify="telephone"  id="telephone" value="{$data.telephone}">
+										</div>
+									</div>
+									<div class="panel-group">
+										<label class="layui-form-label">企业&nbsp;&nbsp;QQ</label>
+										<div class="layui-input-inline" style="width:400px">
+											<input type="text" name="qq" autocomplete="off" placeholder="请输入企业QQ" class="layui-input"
+												   lay-verify="qq"  id="qq" value="{$data.qq}">
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab_4">
+									<div class="panel-group" style="min-height: 60px">
+										<label class="layui-form-label">审核信息</label>
+										<div class="layui-input-inline" style="width:400px">
+											<input type="text" name="check_info" autocomplete="off" placeholder="企业名称/注册号/统一社会信用代码任选一种" class="layui-input"
+												   lay-verify="check-info"  id="check-info" value="">
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="tab_5">
+									<div class="panel-group">
+										{volist name="certifications" id="vcer"}
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title">
+													<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="sc-font">服务资质 --- {$vcer.name}</a>
+												</h4>
+											</div>
+										</div>
+										{/volist}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary submit-upload-edit">提交更改</button>
+						</div>
+
+					</div>
+					</form>
+				</div>
+			</div>
+			<div class="tab-content zz-picbox">
+				<div class="pan tab-pane active" id="info_1">
+					<img src="{$data.blicense|get_file_path}" width="300" >
+				</div>
+				<div class="pan tab-pane" id="info_2">
+					<img src="{$data.opermit|get_file_path}" width="300" >
+				</div>
+				<div class="pan tab-pane" id="info_3">
+					<div class="panel-group" id="accordion">
+						{volist name="certifications" id="vcer"}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="sc-font">服务资质 --- {$vcer.name}</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-4"><strong>状态:</strong>{if $vcer.status==1}<span style="color: green">认证成功</span>{else/}<span style="color: red">未认证{/if}</span> </div>
+										<div class="col-md-4"><strong>审核人: </strong>{$vcer.username} </div>
+										<div class="col-md-4"><strong>审核时间:</strong>{if $vcer.checktime==0}请耐心等待{else/}{$vcer.checktime|date="Y-m-d H:i",###}{/if}</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4"><strong>处理意见:</strong>{if $vcer.remarks==""}暂无{else/}{$vcer.remarks}{/if}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/volist}
+					</div>
+				</div>
+			</div>
+		<!--END CONTENT-->
+	</div>
+</div>
+ </div>
+{include file="Public:manager_footer" /}
+<script>
+    layui.use(['upload','layer'], function(){
+        var $ = layui.jquery
+            ,layer = layui.layer
+            ,upload = layui.upload;
+
+        //营业执照上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: 'ajax_uploads_blicense'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                $("#blicense").val(res);
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+        
+        //开户许可证上传
+        var uploadInst1 = upload.render({
+            elem: '#test2'
+            ,url: 'ajax_uploads_opermit'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo2').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                $("#opermit").val(res);
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst1.upload();
+                });
+            }
+        });
+        $(".submit-upload-edit").click(function(){
+            var blicense = $('#blicense').val();
+            var opermit =$('#opermit').val();
+            var company =$('#company').val();
+            var numbers = /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/;
+            var QQ =/[1-9][0-9]{4,14}/;
+            var telephone=$("#telephone").val();
+            var qq = $("#qq").val();
+            var check_info = $("#check-info").val();
+            if(blicense==''){
+                $('#myTab a[href="#tab_1"]').tab('show');
+                layer.msg('请上传营业执照！');
+                return false;
+			}
+			if(opermit==""){
+                $('#myTab a[href="#tab_2"]').tab('show');
+                layer.msg('请上传开户许可证！');
+                return false;
+			}
+			if(company==""){
+                $('#myTab a[href="#tab_3"]').tab('show');
+			    $("#company").focus();
+                layer.msg('请正确填写公司名称！');
+                return false;
+			}
+			if(!numbers.test(telephone) || telephone==""){
+                $('#myTab a[href="#tab_3"]').tab('show');
+                $("#telephone").focus();
+                layer.msg('请正确填写联系方式！');
+                return false;
+			}
+            if(!QQ.test(qq)||qq=="" ){
+                $('#myTab a[href="#tab_3"]').tab('show');
+                $("#qq").focus();
+                layer.msg('请正确填写企业QQ！');
+                return false;
+            }
+            if(check_info==""){
+                $('#myTab a[href="#tab_4"]').tab('show');
+                $("#check-info").focus();
+                layer.msg('请填写智能审核信息！');
+                return false;
+			}
+                $.ajax({
+                    url: "subFrom",
+                    type: "POST",
+                    dataType: "json",
+                    data:$('form').serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        if(data.status==1){
+                            layer.msg('资质初审成功！');
+                            $(location).attr('href', '/user/certification');
+						}
+						if(data.status==2){
+                            layer.msg('审核失败,请核查审核信息是否正确！');
+						}
+						if(data.status==0){
+                            layer.msg('暂无数据更改！');
+						}
+
+                    }
+                });
+
+
+        });
+    });
+
+</script>

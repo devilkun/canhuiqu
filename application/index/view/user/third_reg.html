@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style2.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_JS__/layui/css/layui.css" />
+    <title>参会去？- 补全账号信息</title>
+    <link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <!--[if lt IE 9]><script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script><![endif]-->
+</head>
+<body style="background: #f7f8fb;">
+{include file="Public:nav" /}
+<!--补全信息-->
+<div class="bd-login bq-box">
+	<h1 class="login-tit" style="text-align: center;">为了方便您的使用,请补全账号信息</h1>
+	<div class="login-box clearfix">
+		<div class="item-right">
+				<input type="hidden" id="access_token" value="{$account_info.access_token}">
+				<input type="hidden" id="openid" value="{$account_info.openid}">
+				<div class="login-input" id="reg-phone">
+					<input type="text" value="" name="mobile" placeholder="填写手机号码" id="phone" class="reg"/>
+				</div>
+				<div class="login-input item-messCode clearfix" id="reg-code">
+					<input type="text" value="" name="code" placeholder="填写验证码" class="reg-cod cod-with reg" id="code"/>
+					<a href="javascript:void(0);" class="reg-sendCode" onclick="sends.send();" id="sendCode">发送验证码</a>
+				</div>
+				<div class="login-input" id="reg-pwd">
+					<input type="password" value="" name="password" id="pwd" class="reg" placeholder="设置密码"/>
+				</div>
+				<div class="login-input account-type" style="z-index: 999">
+					<select id="account-type">
+						<option value="">请选择账号类型</option>
+						<option value="10">普通用户</option>
+						<option value="11">主办方</option>
+						<option value="12">组织机构</option>
+						<option value="13">搭建商</option>
+						<option value="14">运输商</option>
+						<option value="15">酒店服务商</option>
+						<option value="16">机票服务商</option>
+					</select>
+				</div>
+			    <div class="login-input" id="embed-captcha"></div>
+				<div class="item-box">
+					<label class="remeber">
+						<input type="checkbox" checked="checked" />
+						<span>注册成功后，代表您同意我们的<a href="#">服务条款</a></span>
+					</label>
+					<a href="#" class="login-forget">忘记密码？</a>
+				</div>
+				<button class="thirdreg-btn" id="regist-submit">提交</button>
+		</div>
+	</div>
+</div>
+
+<div class="bd-box" style="height:55px"></div>
+{include file="Public:footer" /}
+<script src="__HOME_JS__/third-reg.js" type="text/javascript" charset="UTF-8"></script>
+<script type="text/javascript" src="__HOME_JS__/jquery-select.js" ></script>
+<script type="text/javascript" src="__HOME_JS__/selectFilter.js" ></script>
+<!-- 引入封装了failback的接口--initGeetest -->
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script>
+    $(function(){
+        function doOk(){
+            $("#regist-submit").attr("disabled", false);
+            $("#regist-submit").attr("style", 'background:#fe693e');
+        }
+        var handlerEmbed = function (captchaObj) {
+            captchaObj.appendTo("#embed-captcha");
+            captchaObj.onSuccess(doOk);
+            captchaObj.onReady(function () {
+                $("#regist-submit").attr("disabled", true);
+                $("#regist-submit").attr("style", 'background:#A79995');
+            });
+        };
+        $.ajax({
+            url: "{:geetest_url()}?t=" + (new Date()).getTime(),
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                initGeetest({
+                    gt: data.gt,
+                    challenge: data.challenge,
+                    product: "float",
+                    offline: !data.success,
+                    width:'100%'
+                }, handlerEmbed);
+
+            }
+        });
+    });
+
+</script>
+<script type="text/javascript">
+    $(function(){
+        $('select').searchableSelect();
+    });
+</script>
+</body>
+</html>

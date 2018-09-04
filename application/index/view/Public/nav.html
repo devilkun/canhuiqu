@@ -1,0 +1,37 @@
+<div class="top">
+  <section class="head">
+    <div class="nav-box">
+      <ul>
+        <li><a href="{:url('index/exhibition')}">展会</a></li>
+        <li><a href="#">会议</a></li>
+        <li><a href="{:url('index/index')}"><img src="__HOME_IMG__/logo.png" class="logo"></a></li>
+        <li><a href="#">活动</a></li>
+        <li><a href="#">培训</a></li>
+      </ul>
+    </div>
+    {if condition="$Request.cookie.user_id neq ''"}
+    <div class="registered">
+                {if condition="$Request.cookie.figureurl_qq_1"}
+                <a href="{:url('Manager/index')}" class="u-vatar"><img src="{$Request.cookie.figureurl_qq_1}" height="30" width="30" alt="">
+                   </a>
+                {else/}
+                <a href="{:url('Manager/index')}" class="u-vatar"><img src="__HOME_IMG__/user1.png" height="30" width="30" alt=""></a>
+                {/if}
+        {if condition="$unread_num gt 0 "}<p class="message-tz">{$unread_num}</p>{/if}
+        <div class="uesr-box" style="display: none">
+                    <b></b>
+                    <ul>
+                        <li><a href="{:url('manager/index')}">账户中心</a>
+                        <li><a href="{:url('manager/index')}">我的信息</a>
+                        <li><a href="{:url('user/logout')}">退出登录</a>
+                    </ul>
+                </div>
+      </div>
+    {else/}
+    <div class="login-index">
+      <a href="{:url('User/process')}" class="a-sjzc">商家注册</a>
+      <a href="{:url('User/login')}">登录 / 注册</a>
+    </div>
+    {/if}
+  </section>
+</div>

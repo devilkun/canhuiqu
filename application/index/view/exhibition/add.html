@@ -1,0 +1,448 @@
+{include file="Public:manager_header" /}
+{include file="Public:manager_top" /}
+{if condition="$Request.cookie.role eq '10' "}
+{include file="Public:manager_side0" /}
+{elseif condition="$Request.cookie.role eq '11' "}
+{include file="Public:manager_side1" /}
+{elseif condition="$Request.cookie.role eq '12' "}
+{include file="Public:manager_side2" /}
+{elseif condition="$Request.cookie.role eq '13' "}
+{include file="Public:manager_side3" /}
+{elseif condition="$Request.cookie.role eq '14' "}
+{include file="Public:manager_side4" /}
+{/if}
+<!--BEGIN PAGE WRAPPER-->
+            <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <ol class="breadcrumb page-breadcrumb pull-left">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">用户中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                         <li ><a href="#">展会管理</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li class="active">添加展会</li>
+                    </ol>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE-->
+                <div class="page-content">
+                    <form class="layui-form layui-form-pane" id="form" type="post">
+    <!--前后台区分标识-->
+    <input type="hidden" name="space" value="1">
+    <div class="layui-form-item" >
+        <div class="layui-inline" >
+        <label class="layui-form-label">展会名称</label>
+        <div class="layui-input-inline" style="width:405px">
+            <input type="text" name="name" autocomplete="off" placeholder="请输入展会名称" class="layui-input"
+                   lay-verify="title"  id="name">
+        </div>
+        <label class="layui-form-label">展会英文名称</label>
+        <div class="layui-input-inline" style="width:405px">
+            <input type="text" name="ename" autocomplete="off" placeholder="请输入展会英文名称" class="layui-input"
+                   lay-verify="title1"  id="ename">
+        </div></div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline" >
+            <label class="layui-form-label">展会开始日期</label>
+            <div class="layui-input-inline" style="width:405px">
+                <input type="text" name="startime" id="date2" autocomplete="off" class="layui-input"
+                       placeholder="请选择开始日期" lay-verify="startime">
+            </div>
+            <label class="layui-form-label">展会结束日期</label>
+            <div class="layui-input-inline" style="width:405px">
+                <input type="text" name="endtime" id="date1" autocomplete="off" class="layui-input"
+                       placeholder="请选择结束日期" lay-verify="endtime">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" id="place">
+        <label class="layui-form-label">展会地点</label>
+             <div class="layui-input-inline">
+                    <select name="area" id="area" lay-filter="district" style="width: 140px;" lay-verify="district">
+                    <option value="">请选择区域</option>
+                <option value="1" selected="selected">国内</option>
+                <option value="0">国外</option>
+            </select>
+        </div>
+        <div class="layui-input-inline" style="width: 140px;">
+            <select name="province" id="province" lay-filter="province" lay-verify="province">
+                <option value="">请选择省份</option>
+                {volist name="province" id="pro"}
+                <option value="{$pro.id}">{$pro.name}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-input-inline" style="width: 140px;">
+            <select name="city" id="city">
+                <option value="">请选择城市</option>
+            </select>
+        </div>
+        <div class="layui-input-inline"style="width: 440px;">
+            <input type="text" name="address" autocomplete="off" placeholder="请输入展会详细地址" class="layui-input"
+                   lay-verify="required" style="width:440px;" id="na">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">展会类型</label>
+        <div class="layui-input-inline" style="width: 465px;">
+            <select name="type" id="type" lay-filter="type" lay-verify="type">
+                <option value="">请选择展会主分类</option>
+                {volist name="actype" id="type"}
+                <option value="{$type.id}">{$type.name}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="layui-input-inline" style="width: 465px;">
+            <select name="cid" id="cid" lay-filter="cid" lay-verify="cid">
+                <option value="">请选择展会子分类</option>
+            </select>
+        </div>
+    </div>
+<div class="layui-form-item">
+    <label class="layui-form-label">展馆信息</label>
+    <div class="layui-input-block">
+        <input type="text" name="venues" autocomplete="off" placeholder="请输入展馆名称" class="layui-input"
+               lay-verify="required" style="width:940px;" id="venues">
+    </div>
+</div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">主办单位</label>
+        <div class="layui-input-block">
+            <input type="text" name="organizer" autocomplete="off" placeholder="请输入主办单位名称" class="layui-input"
+                   lay-verify="required" style="width:940px;" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">承办单位</label>
+        <div class="layui-input-block">
+            <input type="text" name="contractor" autocomplete="off" placeholder="请输入承办单位名称" class="layui-input"
+                   lay-verify="required" style="width:940px;" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系方式</label>
+        <div class="layui-input-block">
+            <input type="text" name="telephone" autocomplete="off" placeholder="用于收取审核信息" class="layui-input"
+                   lay-verify="phone" style="width:940px;" >
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text" style="width: 1050px;">
+        <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;展会简介</label>
+        <div class="layui-input-block">
+            <input type="hidden" id="content" name="content"/>
+            <textarea class="layui-textarea layui-hide" lay-verify="content" id="LAY_demo_editor"></textarea>
+        </div>
+    </div>
+                        <div class="layui-form-item layui-form-text" style="width: 1050px;">
+                            <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;展品范围</label>
+                            <div class="layui-input-block">
+                                <input type="hidden" id="range" name="range"/>
+                                <textarea class="layui-textarea layui-hide" lay-verify="range" id="LAY_demo_editor2"></textarea>
+                            </div>
+                        </div>
+    <div class="layui-form-item layui-form-text" style="width: 1050px;">
+        <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图片上传</label>
+        <div id="zyupload" class="zyupload" lay-verify="picture"></div></div>
+    <div class="layui-form-item">
+        <button class="layui-btn layui-btn-warm" lay-submit="post" lay-filter="demo2"
+                style="float: right;background-color: #FF6D52;">提交审核</button>
+    </div>
+</form>
+   </div>
+ <!--END CONTENT-->
+            </div>
+  {include file="Public:manager_footer" /}
+<script src="__HOME_JS__/layui/layui.js" type="text/javascript" charset="UTF-8"></script>
+<script type="text/javascript" src="__HOME_JS__/zyupload/zyupload-1.0.0.min.js"></script>
+  <script>
+    layui.use(['form', 'layedit', 'laydate','layer'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+        laydate.render({
+            elem: '#date2'
+        });
+
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+        var editIndex2 = layedit.build('LAY_demo_editor2');
+        //自定义验证规则
+        form.verify({
+            title: function(value){
+                if(value.length < 5){
+                    return '展会名称至少得5个字符';
+                }
+            },
+            title1: function(value){
+                if(!value){
+                    return '请输入展会英文名称';
+                }
+            },
+            startime: function(value){
+                if(!value){
+                    return '请选择会展开始日期';
+                }
+            },
+            endtime: function(value){
+                if(!value){
+                    return '请选择会展结束日期';
+                }
+            },
+            district:function(value){
+                if(!value){
+                    return '请选择区域';
+                }
+            },
+            province:function(value){
+                if(!value){
+                    return '请选择省份';
+                }
+            },
+            continent:function(value){
+                if(!value){
+                    return '请选择分区';
+                }
+            },
+            country:function(value){
+                if(!value){
+                    return '请选择国家';
+                }
+            },
+            fcity:function(value){
+                if(!value){
+                    return '请选择城市';
+                }
+            },
+            type:function(value){
+                if(!value){
+                    return '请选择展会主分类';
+                }
+            },
+            cid:function(value){
+                if(!value){
+                    return '请选择展会子分类';
+                }
+            },
+            content: function(){
+                var a= layedit.getContent(editIndex);
+                if(!a){
+                    return '请输入展会简介';
+                }else{
+                    $("#content").attr("value",a);
+                }
+            },
+            range: function(){
+                var c= layedit.getContent(editIndex2);
+                if(!c){
+                    return '请输入展品范围信息';
+                }else{
+                    $("#range").attr("value",c);
+                }
+            },
+            picture:function(){
+                var path = $('#picture').val();
+                if(!path){
+                    return '请上传一张图片';
+                }
+            }
+        });
+        //监听提交
+        form.on('submit(demo2)', function(data){
+            $.ajax({
+                url: "subFrom",
+                type: "POST",
+                dataType: "json",
+                data: $("form").serialize(),
+                success: function (status) {
+                    if(status==1){
+                        layer.msg('提交成功！',{time: 5000});
+                        $(location).attr('href', '/manager/index');
+                    }else{
+                        layer.msg('提交失败！');
+                        return false;
+                    }
+                    
+                }
+            });
+            return false;
+        });
+        //监听下拉列表(区域)
+        form.on('select(district)', function(data){
+            var pid = data.value; //得到被选中的值
+            if(pid=="0"){
+                $("#place").empty();
+                $("#place").append('<label class="layui-form-label">展会地点</label>\n' +
+                    '             <input type="hidden" name="area" value="0">\n' +
+                    '             <div class="layui-input-inline">\n' +
+                    '                    <select name="continent" id="continent" lay-filter="continent" lay-verify="continent" style="width: 140px;">\n' +
+                    '                    <option value="">请选择分区</option>\n' +
+                    '                    {volist name="continent" id="con"}\n'+
+                    '                    <option value="{$con.id}">{$con.name}</option>\n'+
+                    '                    {/volist}\n'+
+                    '                    </select>\n' +
+                    '             </div>\n' +
+                    '             <div class="layui-input-inline" style="width: 140px;">\n' +
+                    '                    <select name="country" id="country" lay-filter="country" lay-verify="country">\n' +
+                    '                    <option value="">请选择国家</option>\n' +
+                    '                    </select>\n' +
+                    '             </div>\n' +
+                    '             <div class="layui-input-inline" style="width: 140px;">\n' +
+                    '                    <select name="city" id="fcity" lay-filter="fcity" lay-verify="fcity">\n' +
+                    '                    <option value="">请选择城市</option>\n' +
+                    '                    </select>\n' +
+                    '            </div>\n' +
+                    '            <div class="layui-input-inline">\n' +
+                    '            <input type="text" name="address" autocomplete="off" placeholder="请输入展会详细地址" class="layui-input"\n' +
+                    '                   lay-verify="title" style="width:440px;" id="na">\n' +
+                    '            </div>'
+                );
+                form.render('select'); //这个很重要
+            }
+        });
+        //监听下拉列表（大洲）
+        form.on('select(continent)', function(data){
+            var pid = data.value; //得到被选中的值
+            if(pid !==""){
+                var optionstring = "";
+                $.ajax({
+                    url: "ajax_country",
+                    type: "POST",
+                    dataType: "json",
+                    data: {pid:pid},
+                    success: function (data) {
+                        var a =  data.countrylist;
+                        $("#country").empty();
+                        $("#fcity").empty();
+                        $("#country").append('<option value="">请选择国家</option>');
+                        $("#fcity").append('<option value="">请选择城市</option>');
+                        for(var i=0;i<data.len;i++){
+                            $("#country").append('<option value='+a[i].id+'>'+a[i].name+'</option>' + optionstring);
+                            form.render('select'); //这个很重要
+                        }
+                    }
+
+                });
+            }
+        });
+        //监听下拉列表（国外城市）
+        form.on('select(country)', function(data){
+            var pid = data.value; //得到被选中的值
+            if(pid !==""){
+                var optionstring = "";
+                $.ajax({
+                    url: "ajax_fcity",
+                    type: "POST",
+                    dataType: "json",
+                    data: {pid:pid},
+                    success: function (data) {
+                        console.log(data);
+                        var a =  data.fcitylist;
+                        $("#fcity").empty();
+                        $("#fcity").append('<option value="">请选择城市</option>');
+                        for(var i=0;i<data.len;i++){
+                            $("#fcity").append('<option value='+a[i].id+'>'+a[i].name+'</option>' + optionstring);
+                            form.render('select'); //这个很重要
+                        }
+                    }
+
+                });
+            }
+        });
+        //监听下拉列表(省份)
+        form.on('select(province)', function(data){
+            var pid = data.value; //得到被选中的值
+            if(pid==""){
+                var optionstring = "";
+                $("#city").empty;
+                $("#city").append('<option value="">请选择城市</option>' + optionstring);
+                form.render('select'); //这个很重要
+            }
+            $.ajax({
+                url: "ajax_city",
+                type: "POST",
+                dataType: "json",
+                data: {pid:pid},
+                success: function (data) {
+                    var a =  data.citylist;
+                    $("#city").empty();
+                    for(var i=0;i<data.len;i++){
+                        $("#city").append('<option value='+a[i].id+'>'+a[i].name+'</option>' + optionstring);
+                        form.render('select'); //这个很重要
+                    }
+                }
+
+            });
+        });
+        //监听子分类信息
+        form.on('select(type)', function(data){
+            var pid = data.value; //得到被选中的值
+            if(pid==""){
+                var optionstring = "";
+                $("#cid").empty;
+                $("#cid").append('<option value="">请选择展会子分类</option>' + optionstring);
+                form.render('select'); //这个很重要
+            }
+            $.ajax({
+                url: "ajax_cid",
+                type: "POST",
+                dataType: "json",
+                data: {pid:pid},
+                success: function (data) {
+                    var a =  data.childrenlist;
+                    $("#cid").empty();
+                    if(data.len==0){
+                        var optionstring = "";
+                        $("#cid").empty;
+                        $("#cid").append('<option value="">请选择展会子分类</option>' + optionstring);
+                        form.render('select'); //这个很重要
+                    }
+                    for(var i=0;i<data.len;i++){
+                        $("#cid").append('<option value='+a[i].id+'>'+a[i].name+'</option>' + optionstring);
+                        form.render('select'); //这个很重要
+                    }
+                }
+
+            });
+        });
+    });
+</script>
+<script>
+    $(function(){
+        // 初始化插件
+        $("#zyupload").zyUpload({
+            width            :   "1050px",                 // 宽度
+            height           :   "400px",                 // 宽度
+            itemWidth        :   "140px",                 // 文件项的宽度
+            itemHeight       :   "115px",                 // 文件项的高度
+            url              :   "checkUpload",              // 上传文件的路径
+            fileType         :   ["jpg","png"],// 上传文件的类型
+            fileSize         :   51200000,                // 上传文件的大小
+            multiple         :   false,                    // 是否可以多个文件上传
+            dragDrop         :   true,                    // 是否可以拖动上传文件
+            tailor           :   true,                    // 是否可以裁剪图片
+            del              :   true,                    // 是否可以删除文件
+            finishDel        :   false,                   // 是否在上传文件完成后删除预览
+            /* 外部获得的回调接口 */
+            onSelect: function(selectFiles, allFiles){    // 选择文件的回调方法  selectFile:当前选中的文件  allFiles:还没上传的全部文件
+            },
+            onDelete: function(file, files){              // 删除一个文件的回调方法 file:当前删除的文件  files:删除之后的文件
+            },
+            onSuccess: function(file, response){          // 文件上传成功的回调方法
+                $('#zyupload').append('<input type="hidden" name="picture" id="picture" value='+response+'>');
+            },
+            onFailure: function(file, response){          // 文件上传失败的回调方法
+            },
+            onComplete: function(response){               // 上传完成的回调方法
+            }
+        });
+
+    });
+</script>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus" lang="zh"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus" lang="zh"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>升级程序（{$version_from}-{$version_to}） - DolphinPHP</title>
+    <meta name="description" content="{:config('web_site_description')}">
+    <meta name="author" content="caiweiming">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0">
+
+    <link rel="shortcut icon" href="__ADMIN_IMG__/favicons/favicon.ico">
+    <link rel="stylesheet" href="__ADMIN_CSS__/bootstrap.min.css">
+    <link rel="stylesheet" href="__ADMIN_CSS__/oneui.css">
+    <link rel="stylesheet" href="__ADMIN_CSS__/dolphin.css">
+</head>
+<body>
+<main id="main-container" style="min-height: 387px;">
+    <!-- Page Header -->
+    <!-- You can use the .hidden-print class to hide an element in printing -->
+    <div class="content bg-gray-lighter hidden-print">
+        <div class="row items-push">
+            <div class="col-sm-7">
+                <h1 class="page-heading">
+                    DolphinPHP升级程序 <small>{$version_from} -> {$version_to}</small>
+                </h1>
+            </div>
+            <div class="col-sm-5 text-right hidden-xs">
+                <ol class="breadcrumb push-10-t">
+                    <li><a class="link-effect" href="http://www.dolphinphp.com">DolphinPHP</a></li>
+                    <li><a class="link-effect" href="http://doc.dolphinphp.com/256446">更新日志</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- END Page Header -->
+
+    <!-- Page Content -->
+    <div class="content content-boxed">
+        <div class="alert alert-danger">
+            <h3 class="font-w300 push-15">升级前必读</h3>
+            <ul>
+                <li>本程序仅适用于DolphinPHP{$version_from}升级至{$version_to}，请勿用于其他版本。</li>
+                <li>升级前，请务必备份【站点文件】和【数据库】，避免升级失败而造成损失，建议另外复制站点来尝试更新。</li>
+                <li>如果您修改过框架代码，请认真考虑是否升级，以免造成升级后系统无法正常运行。</li>
+                <li>由于此次更新了ThinkPHP核心，导致根目录下的composer.lock文件和vendor目录有变化，如果自己用composer安装过其他扩展，请注意备份好原来的composer.lock文件，升级完成后，再手动加上自己安装的扩展配置。</li>
+                <li>为保证系统安全，如果不需要升级或升级完成后，请自行删除【application/update】目录。</li>
+                <li>查看 <a href="http://doc.dolphinphp.com/256446">更新日志</a></li>
+            </ul>
+        </div>
+        <!-- Invoice -->
+        <div class="block">
+            <div class="block-header">
+                <h3 class="block-title">#{$version_to}</h3>
+            </div>
+            <div class="block-content block-content-narrow">
+                <!-- Invoice Info -->
+                <div class="h1 text-center push-30-t push-30 hidden-print">升级程序</div>
+
+                <!-- Table -->
+                <div class="table-responsive push-50">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 50px;">#</th>
+                            <th>更新内容</th>
+                            <th class="text-center" style="width: 100px;">状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>更新数据库</td>
+                            <td class="text-center"><span id="status-data">就绪</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>更新文件</td>
+                            <td class="text-center"><span id="status-files">就绪</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <button class="btn btn-noborder btn-rounded btn-primary" type="button" id="update"><i class="fa fa-upload push-5-r"></i> 确认无误，立即升级</button>
+                    </div>
+                </div>
+                <!-- END Table -->
+
+                <!-- Footer -->
+                <hr class="hidden-print">
+                <p class="text-muted text-center"><small>
+                    <a class="font-w600" href="http://www.dolphinphp.com" target="_blank">DolphinPHP {$version_to}</a> © <span class="js-year-copy">2015-18</span>
+                    Crafted with <i class="fa fa-heart text-city"></i> by <a class="font-w600" href="http://www.zrthink.com" target="_blank">河源市卓锐科技有限公司</a>
+                </small></p>
+                <!-- END Footer -->
+            </div>
+        </div>
+        <!-- END Invoice -->
+    </div>
+    <!-- END Page Content -->
+</main>
+<script src="__ADMIN_JS__/core/jquery.min.js"></script>
+<script src="__ADMIN_JS__/core/bootstrap.min.js"></script>
+<script src="__LIBS__/magnific-popup/magnific-popup.min.js"></script>
+<script src="__ADMIN_JS__/dolphin.js"></script>
+<script src="__LIBS__/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script>
+    jQuery(function () {
+        $('#update').click(function () {
+            if (confirm('确定要执行升级程序吗？')) {
+                $(this).prop('disabled', true).html('<i class="fa fa-cog fa-spin push-5-r"></i> 升级中，请稍等...');
+                $('#status-data').html('升级中');
+                $.post('{:url("updateData")}').success(function (res) {
+                    if (res.code) {
+                        $('#status-data').addClass('text-success').html('升级成功');
+                        $('#status-files').html('升级中');
+                        $.post('{:url("updateFile")}').success(function (res) {
+                            if (res.code) {
+                                $('#status-files').addClass('text-success').html('升级成功');
+                                Dolphin.notify('升级完成', 'success');
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 1500);
+                            } else {
+                                resetBtn();
+                                Dolphin.notify(res.msg, 'danger');
+                            }
+                        }).fail(function (res) {
+                            Dolphin.notify($(res.responseText).find('h1').text(), 'danger');
+                        });
+                    } else {
+                        resetBtn();
+                        Dolphin.notify(res.msg, 'danger');
+                    }
+                }).fail(function (res) {
+                    Dolphin.notify($(res.responseText).find('h1').text(), 'danger');
+                });
+            }
+        });
+
+        var resetBtn = function () {
+            $('#update').prop('disabled', false).html('<i class="fa fa-upload push-5-r"></i> 确认无误，立即升级');
+        }
+    });
+</script>
+</body>
+</html>

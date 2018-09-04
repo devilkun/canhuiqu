@@ -1,0 +1,155 @@
+{include file="Public:manager_header" /} {include file="Public:manager_top" /} {if condition="$Request.cookie.role eq '10' "} {include file="Public:manager_side0" /} {elseif condition="$Request.cookie.role eq '11' "} {include file="Public:manager_side1"
+/} {elseif condition="$Request.cookie.role eq '12' "} {include file="Public:manager_side2" /} {elseif condition="$Request.cookie.role eq '13' "} {include file="Public:manager_side3" /} {elseif condition="$Request.cookie.role eq '14' "} {include file="Public:manager_side4"
+/} {elseif condition="$Request.cookie.role eq '15' "} {include file="Public:manager_side4" /} {elseif condition="$Request.cookie.role eq '16' "} {include file="Public:manager_side4" /} {/if}
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/manager/style.css" />
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/manager/bootstrap.css" />
+<link rel="stylesheet" href="__HOME_CSS__/manager/base/jquery.ui.all.css">
+<style media="screen">
+    .no-data {
+        width: 100%;
+        background: #fff;
+        clear: both;
+        border: 1px solid #cfcfcf;
+        padding: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: red
+    }
+</style>
+<!--BEGIN PAGE WRAPPER-->
+<div id="page-wrapper">
+    <!--BEGIN TITLE & BREADCRUMB PAGE-->
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <ol class="breadcrumb page-breadcrumb pull-left">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">用户中心</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">我的消息</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        </ol>
+        <div class="clearfix"></div>
+    </div>
+    <!--END TITLE & BREADCRUMB PAGE-->
+    <div class="page-content">
+        <div class="all-box fl" style="width: 100%;height:100%">
+            <div class="main-body">
+                <form class="form-inline">
+                    <div class="form-box" style="margin-bottom:20px">
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">开始时间：</span>
+                            <input class="form-control" id="startdate" />
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">结束时间：</span>
+                            <input class="form-control" id="enddate" />
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-addon">状态：</span>
+                            <select class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="width: 150px">
+                                        <option value="" class="" selected="selected">-- 请选择 --</option>
+                                        <option label="未读取" value="number:1">未读取</option>
+                                        <option label="已读取" value="number:3">已读取</option>
+                                    </select>
+                        </div>
+                        <div class="input-group input-box">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary">查询</button>
+                            </span>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="tableall">
+                    <table class="table tablelist table-hover table-responsive table-bordered table-striped" style="width: 100%;text-align: center;">
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <th style="width:120px;">
+                                    序号
+                                </th>
+                                <th>类型</th>
+                                <th style="width:90px;">状态</th>
+                                <th>创建时间</th>
+                                <th>读取时间</th>
+                                <th>操作</th>
+                            </tr>
+                            {volist name="info_list" id="info"}
+                            <tr>
+                                <td style="vertical-align: middle">{$i}</td>
+                                <td style="vertical-align: middle">{$info.type}</td>
+                                <td style="vertical-align: middle">{if condition="$info.status eq 1"}已读取{else/}未读取{/if}</td>
+                                <td style="vertical-align: middle">{$info.create_time|date="Y-m-d H:i:s",###}</td>
+                                <td style="vertical-align: middle">{if condition="$info.read_time eq '' "}暂无{else/}{$info.read_time|date="Y-m-d H:i:s",###}{/if}</td>
+                                <td style="vertical-align: middle">
+                                    <button type="button" class="btn btn-success custom-width myRead" data-toggle="modal" mid="{$info.id}">阅读</button>
+
+                                </td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="myRead" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="style=" overflow-y: auto; "">
+                        <div class="modal-dialog" style="width: 65%">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                    </h4>
+                                </div>
+                                <div class="modal-body" style="height:60px;overflow-y:auto;">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分页-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="Public:manager_footer" /}
+<script type="text/javascript" src="__HOME_JS__/manager/bootstrap.js"></script>
+<!--日历控件-->
+<script type="text/javascript" src="__HOME_JS__/manager/jquery.ui.datepicker-zh-CN.js"></script>
+<script type="text/javascript" src="__HOME_JS__/manager/jquery-ui-1.8.21.custom.min.js"></script>
+<script>
+    $(function() {
+
+        //demo 1
+        $("#datepicker").datepicker();
+
+        //demo 2
+        $("#startdate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            onSelect: function(selectedDate) {
+                $("#enddate").datepicker("option", "minDate", selectedDate, $.datepicker.regional["zh-CN"]);
+            }
+        });
+        $("#enddate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            onSelect: function(selectedDate) {
+                $("#startdate").datepicker("option", "maxDate", selectedDate, $.datepicker.regional["zh-CN"]);
+            }
+        });
+
+        $('.myRead').on('click', function() {
+            $('#myRead').modal('show');
+            var mid = $(this).attr('mid');
+            $.post('/manager/ajax_get_content', {
+                id: mid
+            }, function(content) {
+                $('.modal-title').text(content.type);
+                $('.modal-body').text(content.content);
+                if (content.read_status == 0) {
+                    $("#myRead").on("hidden.bs.modal", function() {
+                        location.reload();
+                    });
+                }
+            }, 'json')
+        });
+
+    });
+</script>

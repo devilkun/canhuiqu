@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{include file="Public:header" /}
+<style>
+	.not-support{ font-size: 24px; min-height: 300px; text-align: center; line-height: 300px;}
+	.not-support span{ color: #fd715a;}
+</style>
+  <link rel="stylesheet" type="text/css" href="__HOME_CSS__/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" href="__HOME_CSS__/reveal.css"/>
+<!--banner-->
+<div class="bd-wraper">
+    <div class="zg-figure">
+        <h2><span style="color: #FF6D52">标摊效果图</span></h2>
+        {if condition="$path eq 0 "}
+        <div class="con-box introduce" style="border-color:#FF6D52 ">
+            <div class="not-support">
+                暂无可预览标摊效果图
+            </div>
+        </div>
+        {else/}
+        {volist name="path" id="path"}
+        <div class="zg-picBox">
+            <img src="{$path|get_file_path}" width="1160px" height="auto">
+        </div>
+        {/volist}
+        {/if}
+
+    </div></div>
+<!--弹出窗口js-->
+{include file="Public:footer" /}
+<script type="text/javascript" src="__HOME_JS__/jquery.reveal.js"></script>	
+<!--进度条-->
+<script type="text/javascript" src="__HOME_JS__/progressBar.js" ></script>
+<!--进度条-->  
+<script type="text/javascript" src="__HOME_JS__/lib.js"></script>
+<!--tab-->	
+

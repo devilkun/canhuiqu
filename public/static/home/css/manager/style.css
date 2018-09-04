@@ -1,0 +1,56 @@
+body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, img, div, dl, dt, dd, input { padding:0; margin:0;}
+body { font-size:12px;  color: #5a5a5a;}
+img { border:none; display: block;}
+ul, li { list-style-type:none;}
+input, select, textarea { outline:none;}
+textarea { resize:none;}
+a { text-decoration:none; color: #5a5a5a;}
+/*清除浮动*/
+.clear{ clear: both;}
+.clearfix:before, .clearfix:after { content:""; display:table;}
+.clearfix:after { clear:both; overflow:hidden;}
+.clearfix { zoom:1;}
+.fl { float:left;}
+.fr { float:right;}
+.all-box{ width: 100%;}
+
+.tit-box{ width: 100%; height: 40px; line-height: 40px; background: #394555; color: #fff; font-size: 12px; text-indent: 10px;}
+
+.main-body{ width: 100%;  margin: auto;}
+/*.form-box{ margin-top: 10px;}*/
+
+.tableall{}
+
+.tablelist th{ text-align: center;}
+.page{ text-align: center;}
+/*.input-box{ width: 220px !important; }*/
+/*.input-box input{ display: inline-block; width: 80%  !important;}*/
+.input-box{ margin-top: 10px;}
+.input-group-addon,.tableall,.btn{font-size:12px  !important;}
+.red-border{ border: 1px solid red; display: inline-block; padding: 5px 15px; position: relative; border-radius: 2px; margin: 10px 2px;}
+.red-border span{position: absolute; right: -3px; top: -8px; color: red; font-size: 12px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

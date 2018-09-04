@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{include file="Public:header" /}
+<link rel="stylesheet" type="text/css" href="__HOME_CSS__/reveal.css"/>
+	<div class="con-middle">
+		<div class="mid-tit">
+		</div>
+
+		<div class="content clearfix">
+			<div class="left-con">
+				<!--行业分类-->
+				<div class="con-box clearfix">
+					<p class="tit-con"><span style="color: #FF6D52">行业分类</span></p>
+					<div class="hy-lisy">
+						<ol>
+							{volist name="data" id="vo"}
+							<li><a href="{:url('index/category',['parentCategoryId'=>$vo.id])}">{$vo.name}<span style="color: #0a6aa1">({$vo.num})</span></a></li>
+							{/volist}
+						</ol>
+					</div>
+				</div>
+				
+			</div>
+			<div class="right-con">
+				<div class="con-box Concurrent">
+					<p class="tit-con"><span style="color: #FF6D52">最新发布</span></p>
+					<div class="other">
+						<ul>
+							{volist name="Newlist" id="Newlist"}
+							<li>
+								<div class="other-time"><img src="{$Newlist.picture_path}" width="60" height="40"></img></div>
+
+								<div class="other-text">
+
+									<a href="{:url('detail/index',['id' => $Newlist['id']])}">{$Newlist.name}</a>
+
+									<span>{$Newlist.startime|date="Y-m-d",###}日-{$Newlist.endtime|date="Y-m-d",###}日</span>
+
+								</div>
+							</li>
+							{/volist}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--表单-->
+{include file="Public:footer" /}

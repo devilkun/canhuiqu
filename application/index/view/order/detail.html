@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css"/>
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/bootstrap.css"/>
+		<link rel="stylesheet" href="__HOME_CSS__/jquery.ui.all.css">
+		<link rel="stylesheet" href="__HOME_CSS__/simple-page.css">
+		<link type="text/css" rel="stylesheet" href="__HOME_JS__/manager/font-awesome/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Comfortaa|Yellowtail" rel="stylesheet">
+		<title>参会去?-订单详情</title>
+	</head>
+	<body>
+	<!--BEGIN BACK TO TOP-->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #2a3b4c !important;">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+					<span class="sr-only">切换导航</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="{:url('index/index')}" class="navbar-brand nav-title logo-text" style="margin-left: -50px !important;" >参会去信息发布</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-menu">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="cative"><a href="{:url('index/index')}" class="nav-text">切换到网站首页</a></li>
+					<li class="cative"><a href="{:url('manager/myorder')}" class="nav-text">我的订单</a></li>
+					<li class="cative"><a href="{:url('manager/index')}" class="nav-text">个人中心</a></li>
+					<li class="cative"><a href="{:url('manager/myinfo')}" class="nav-text">消息中心</a></li>
+					<li class="cative"><a href="{:url('user/logout')}" class="nav-text">退出系统</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="oeder-details" style="margin-top: 50px">
+			<div class="order-xx clearfix">
+				<h3 class="order-tit">订单概况</h3>
+				<div class="order-message">
+					<ul>
+						<li>
+							<span>订单编号：</span>{$detail.order_number}
+						</li>
+						<li>
+							<span>订单类型：</span>{if condition="$detail.order_type eq 'book_booth'"}展位销售{elseif condition="$detail.order_type eq 'book_pt'" /}
+							随团销售{/if}
+						</li>
+						<li>
+							<span>订单状态：</span>{if condition="$detail.order_status eq 1"}支付成功{elseif condition="$detail.order_status eq 2" /}支付待处理
+							{elseif condition="$detail.order_status eq 3" /}支付已取消{elseif condition="$detail.order_status eq 4"/}支付待审核{else/}支付超时{/if}
+						</li>
+						<li>
+							<span>订单时间：</span>{$detail.create_time|date="Y-m-d H:i:s",###}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="order-xx clearfix">
+				<h3 class="order-tit">展会信息</h3>
+				<div class="order-message">
+					<ul>
+						<li>
+							<span>名称：</span>{$detail.ex_name}({$detail.ex_ename})
+						</li>
+						<li>
+							<span>展馆：</span>{$detail.venues}
+						</li>
+						<li>
+							<span>地址：</span>{$district[0][$detail['city_id']]['country']} • {$district[0][$detail['city_id']]['city']} • {$detail.venues}
+						</li>
+						<li>
+							<span>时间：</span>{$detail.startime|date="Y.m.d",###}~{$detail.endtime|date="Y.m.d",###}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel panel-default" style="margin-top: 20px;">
+				<div class="panel-heading">
+					<div class="panel-title">订单信息</div>
+				</div>
+				<div class="panel-body">
+					<div class="order-xx clearfix">
+						<h3 class="order-tit order-f1" style="margin-top: 0px;">客户信息</h3>
+						<div class="order-message">
+							<ul>
+								<li>
+									<span>客户姓名：</span>{$detail.con_name}
+								</li>
+								<li>
+									<span>联系方式：</span>{$detail.con_telephone}
+								</li>
+								<li>
+									<span>客户地址：</span>{$detail.com_address}
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="order-xx clearfix">
+						<h3 class="order-tit order-f1" style="margin-top: 10px;">金额明细</h3>
+						<div class="order-message">
+							<ul>
+								{notempty name="$detail.reg_fee"}
+								<li>
+									<span>注册费用：</span>￥{$detail.reg_fee} / 企业
+								</li>
+								{/notempty}
+								{notempty name="$detail.stand_price"}
+								<li>
+									<span>标准摊位：</span>￥{$detail.stand_price} / 平米
+								</li>
+								{/notempty}
+								{notempty name="$detail.indoor_price"}
+								<li>
+									<span>室内光地：</span>￥{$detail.indoor_price} / 平米
+								</li>
+								{/notempty}
+								{notempty name="$detail.outdoor_price"}
+								<li>
+									<span>室外光地：</span>￥{$detail.outdoor_price} / 平米
+								</li>
+								{/notempty}
+								{notempty name="$detail.other_fee"}
+								<li>
+									<span>其他费用：</span>￥{$detail.other_fee} / 平米
+								</li>
+								{/notempty}
+							</ul>
+						</div>
+					</div>
+					<div class="order-xx clearfix">
+						<h3 class="order-tit order-f1" style="margin-top: 10px;">展位信息</h3>
+						<div class="order-message">
+							<ul>
+								{notempty name="$detail.stand_area"}
+								<li>
+									<span>标准展：</span>{$detail.stand_area|number_format=###,1} 平方米
+								</li>
+								{/notempty}
+								{notempty name="$detail.indoor_area"}
+								<li>
+									<span>室内光地：</span>{$detail.indoor_area|number_format=###,1} 平方米
+								</li>
+								{/notempty}
+								{notempty name="$detail.outdoor_area"}
+								<li>
+									<span>室外光地：</span>{$detail.outdoor_area|number_format=###,1} 平方米
+								</li>
+								{/notempty}
+							</ul>
+						</div>
+					</div>
+					<div class="order-xx clearfix">
+						<h3 class="order-tit order-f1" style="margin-top: 10px;">付款信息</h3>
+						<div class="order-message">
+							<ul>
+								<li>
+									<span>商品金额：</span><span class="order-money">￥{$detail.pay_price|number_format=###,2}</span></li>
+								<li>
+									<span>支付方式：</span><span class="order-money">{if condition="$detail.pay_method eq 'offline' "}线下支付{/if}</span>
+								</li>
+								{if condition="$detail.order_status eq 4 && $detail.pay_method eq 'offline' "}
+								<li style="margin-top: 10px">
+									<img src="{$detail.voucher_id|get_file_path}" >
+								</li>
+								{/if}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default" style="margin-top: 20px;">
+				<div class="panel-heading">
+					<div class="panel-title">其他信息</div>
+				</div>
+				<div class="panel-body">
+					<div class="order-xx clearfix">
+						<h3 class="order-tit order-f1" style="margin-top: 0px;">联系人信息</h3>
+						<div class="order-message">
+							<ul>
+								<li>
+									<span>姓名：</span>{$detail.con_name}
+								</li>
+								<li>
+									<span>手机：</span>{$detail.con_telephone}
+								</li>
+								<li style="width: 100%;">
+									<span>备注：</span>{$detail.con_remark}
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="order-xx clearfix">
+						<h3 class="order-tit order-f1" style="margin-top: 10px;">企业信息</h3>
+						<div class="order-message">
+							<ul>
+								<li>
+									<span>名称：</span>{$detail.com_name}
+								</li>
+								<li>
+									<span>邮箱：</span>{$detail.com_email}
+								</li>
+								<li>
+									<span>电话：</span>{$detail.com_mobile}
+								</li>
+								<li>
+									<span>地址：</span>{$detail.com_address}
+								</li>
+								<li>
+									<span>传真：</span>{$detail.com_fax}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default" style="margin-top: 20px;">
+				<div class="panel-heading">
+					<div class="panel-title">供应商信息</div>
+				</div>
+				<div class="panel-body">
+					<div class="order-xx clearfix">
+						<h3 class="order-tit order-f1" style="margin-top: 0px;">联系人信息</h3>
+						<div class="order-message clearfix">
+							<ul>
+								<li>
+									<span>公司名称：</span>{$detail.seller_company}
+								</li>
+								<li>
+									<span>咨询电话：</span>{$detail.seller_telphone}
+									<img src="{get_file_path('1232')}">
+								</li>
+								<a href="tencent://message/?uin={$detail.seller_qq}" class="zx-lx"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;&nbsp;点我联系</a>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div id="footer">
+		<div class="copyright">参会去会展活动信息平台 | 京ICP备17039834号-2</div>
+	</div>
+<script type="text/javascript" src="__HOME_JS__/jquery-11.0.min.js" ></script>
+<script type="text/javascript" src="__HOME_JS__/bootstrap.js" ></script>
+</body>
+</html>

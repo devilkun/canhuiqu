@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css"/>
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css"/>
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/base.css"/><!--行程安排-->
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/jquery.step.css"/>
+		<link rel="stylesheet" type="text/css" href="__HOME_CSS__/bootstrap.css"/>
+        <title>{$list.name}</title>
+        <link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    	<meta name="renderer" content="webkit">
+<!--[if lt IE 9]>
+<script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script>
+<![endif]-->
+	</head>
+	<body style="background:  #ffffff;">
+	{include file="Public:nav" /}
+	<div class="top">
+		<section class="banner-ny clearfix"></section>
+	</div>
+	<section class="details-titBox">
+		<div class="details-mid">
+			<div class="details-left fl">
+				<a href="{:url('Detail/index',['id' => $list['id']])}">展会详情</a>
+				<a href="{:url('Booth/book',['id' => $list['id']])}" class="left-actvie">展位预定</a>
+				<a href="{:url('Pt/book',['id' => $list['id']])}">拼团行程</a>
+				<a href="{:url('CustomizeStroke/book',['id' => $list['id']])}">定制行程</a>
+				<a href="{:url('BoothConstruction/book',['id' => $list['id']])}">展台搭建</a>
+				<a href="{:url('ExhibitsTransportation/book',['id' => $list['id']])}">展品运输</a>
+				<a href="#">展会票务</a>
+			</div>
+			<!-- <p class="fr tel">
+                    热线电话：010-12345678
+                </p> -->
+		</div>
+	</section>
+	<section class="content clearfix">
+		<!--流程-->
+		<div class="bar">
+			<div class="text-yd">
+				<font style="color:#f7f8fb">预订流程</font>
+			</div>
+			<ul class="nav nav-pills nav-justified step step-round" data-step="6">
+				<li>
+					<a>选择供应商</a>
+				</li>
+				<li>
+					<a>选择展位类型和面积</a>
+				</li>
+				<li>
+					<a>填写参展企业信息</a>
+				</li>
+				<li>
+					<a>选择支付</a>
+				</li>
+				<li>
+					<a>供应商确认</a>
+				</li>
+				<li>
+					<a>预定完成</a>
+				</li>
+			</ul>
+		</div>
+		<div class="con-left fl">
+			<!--流程-->
+			<div class="step-body" id="myStep">
+				<div class="step-header" style="width:100%">
+					<ul>
+						<li><p>参展信息填写</p></li>
+						<li><p>选择支付方式</p></li>
+						<li><p>确认完成</p></li>
+					</ul>
+				</div>
+			</div>
+			<div class="enterprise" style="margin-top: 50px;" class="clearfix">
+				<form action="{:url('booth/payment')}" method="post" id="contacts-info">
+					<input id="exid" type="hidden" value="{$list.id}" name="ex_id"/>
+					<input id="boothid" type="hidden" value="{$booth.id}" name="booth_id"/>
+					<input id="indoorArea" name="indoor_area" type="hidden" value="{$data.indoorArea}">
+					<input id="StandArea" name="stand_area" type="hidden" value="{$data.StandArea}">
+					<input id="outdoorArea" name="outdoor_area" type="hidden" value="{$data.outdoorArea}">
+					<input id="firstBooth" name="first_booth" type="hidden" value="{$data.firstBooth}">
+					<input id="secondBooth" name="second_booth" type="hidden" value="{$data.secondBooth}">
+					<input id="thirdBooth" name="third_booth" type="hidden" value="{$data.thirdBooth}">
+					<p style="text-align: center;">请准确填写公司信息，与营业执照一致</p>
+					<ul style="border-bottom: 1px solid #ccc;">
+						<li>
+							<div class="form-tit fl">
+								<span>*</span> 企业名称-中文：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 505px;" name="com_name">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								企业名称-英文：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 505px;" name="com_ename">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								<span>*</span> 公司电话：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 185px;" name="mobile">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								<span>*</span> 公司传真：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width:185px;" name="fax">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								<span>*</span> 公司邮箱：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 185px;" name="email">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl" >
+								 公司网址：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width:185px;" name="url">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								<span>*</span> 公司地址：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 505px;" name="address">
+							</div>
+						</li>
+						<li style="display: none" id="template_name">
+							<div class="form-tit fl">
+								<span>*</span> 模板名称：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 505px;" name="template_name" placeholder="用于读取常用企业信息">
+							</div>
+						</li>
+						<li>
+							<div class="form-box fl" style="margin-left: 220px;">
+								<input value="1" type="checkbox" name="is_com"> 保存为常用企业</input>
+								{if condition="count($frequent_company) gt 0"}
+								<input value="1" type="radio" name="is_use" style="margin-left: 20px;" id="is_use"><span style="color:green">使用常用企业信息</span></input>
+								{/if}
+							</div>
+						</li>
+						<li style="display: none" id="template_id">
+							<div class="form-box fl" style="margin-left: 220px;">
+								{volist name="$frequent_company" id="fc"}
+								<input value="{$fc.id}" type="radio" name="template_id">{$fc.template_name}</input>
+								{/volist}
+								<input value="0" type="radio" name="template_id"><span style="color:red">取消选择</span></input>
+							</div>
+						</li>
+					</ul>
+					<p style="text-align: center;">请填写联系人信息</p>
+					<ul>
+						<li>
+							<div class="form-tit fl">
+								<span>*</span> 姓名：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 185px;" name="name">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								<span>*</span> 手机：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width: 185px;" name="telephone">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								邮箱：
+							</div>
+							<div class="form-box fl">
+								<input class="form-control" type="text" style="width:185px;" name="useremail">
+							</div>
+						</li>
+						<li>
+							<div class="form-tit fl">
+								 备注：
+							</div>
+							<div class="form-box fl">
+								<textarea class="form-control" style="width: 505px; height: 185px;" name="description"></textarea>
+							</div>
+						</li>
+						<li>
+							<div class="form-box fl" style="margin-left: 220px;">
+								<input value="1" type="checkbox"  name="agree" id="agree"/> 同意<a href="#">参会去预定条款</a>及相关隐私权政策</label>
+							</div>
+						</li>
+
+						<li style="margin-left: 220px;">
+							<button style="background-color: #2a3b4c" disabled id="submit">提交</button>
+						</li>
+					</ul>
+				</form>
+			</div>
+
+		</div>
+		<div class="con-right fr pre-book" style="margin-top: 15px !important;">
+            <div class="setout-xq">
+                <b class="setout-tit">展会名称：</b>
+                <div class="xq-box">
+                    <b>{$list.name}({$list.ename})</b>
+                    <p>时间：{$list.startime|date='Y年m月d日',###} - {$list.endtime|date='m月d日',###}</p>
+                    <p>地点：{$district[0][$list['city_id']]['country']} • {$district[0][$list['city_id']]['city']} • {$list.venues}</p>
+                </div><br />
+                <b class="setout-tit">预定详情：</b>
+                <div class="xq-box">
+                    <p>标准展位：<span>{$data.StandArea}.㎡（¥{$booth.stand_price}/㎡）</span></p>
+                    <p>费用估计：<span style="font-size: 18px;">¥{$data.StandArea*$booth.stand_price|number_format}</span></p>
+                    <p>费用说明：外币将按照订单生成时实时汇率换成人民币</p>
+                </div><br />
+                <b class="setout-tit">服务商信息：</b>
+                <div class="xq-box">
+                    <p>公司名称：{$booth.company}</p>
+                    <p>工作时间：周一至周五09:00-18:00</p>
+                    <p>联系电话：{$booth.telephone}</p>
+                </div>
+                <a href="tencent://message/?uin={$booth.qq}">联系服务商</a>
+            </div>
+
+        </div>
+	</section>
+	<!--弹出窗口js-->
+	{include file="Public:footer" /}
+	<!--<script type="text/javascript" src="__HOME_JS__/jquery.reveal.js"></script>-->
+	<!--进度条-->
+	<script type="text/javascript" src="__HOME_JS__/progressBar.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/sweetalert2.min.js"></script>
+	<!--进度条-->
+	<script type="text/javascript" src="__HOME_JS__/lib.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/fol_nav.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/verification.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/jquery.step.js"></script>
+	<script>
+        $(function() {
+
+            var step= $("#myStep").step({
+                animate:true,
+                initStep:1,
+                speed:1000
+            });
+
+
+            $("#preBtn").click(function(event) {
+                var yes=step.preStep();
+
+            });
+            $("#applyBtn").click(function(event) {
+                var yes=step.nextStep();
+
+            });
+            $("#submitBtn").click(function(event) {
+                var yes=step.nextStep();
+
+
+            });
+            $("#goBtn").click(function(event) {
+                var yes=step.goStep(3);
+
+            });
+        });
+		var notice =function(content){
+		             var sp = '';
+		             sp = '<span style="color: red;margin-left:230px;" class="error">'+content+'</span>';
+		             return sp ;
+		};
+		//是否保存为常用企业
+        $('input[name="is_com"]').click(function(){
+            if($(this).is(':checked')){
+                 $('#is_use').attr('disabled',true);
+                 $('#template_name').css('display','block');
+            }else{
+                 $('#is_use').attr('disabled',false);
+                 $('#template_name').css('display','none');
+			}
+		});
+        //是否使用常用企业
+        $('#is_use').click(function(){
+            if($(this).is(':checked')){
+                $('input[name="is_com"]').attr('disabled',true);
+                $('#template_id').css('display','block');
+            }
+        });
+        //取消选择
+		$('input[name="template_id"]').click(function(){
+            if($(this).is(':checked')){
+                if($(this).val()==0){
+                    $('#template_id').css('display','none');
+                    $('#is_use').removeAttr('checked');
+                    $('input[name="is_com"]').attr('disabled',false);
+                    document.getElementById("contacts-info").reset();
+				}else{
+                    $.post('/booth/getCompanyTemplate',{id:$(this).val()},function(data){
+                             $('input[name="com_name"]').val(data.com_name);
+                             $('input[name="com_ename"]').val(data.com_ename);
+                             $('input[name="mobile"]').val(data.mobile);
+                             $('input[name="fax"]').val(data.fax);
+                             $('input[name="email"]').val(data.email);
+                             $('input[name="url"]').val(data.url);
+                             $('input[name="address"]').val(data.address);
+					},'json');
+				}
+			}
+		});
+        //是否同意
+		$('#agree').click(function(){
+			if($(this).is(':checked')){
+			     $('#submit').css('background-color','#ff4400');
+				 $('#submit').removeAttr('disabled');
+			}else{
+                $('.error').remove();
+                $('#submit').css('background-color','#2a3b4c');
+                $('#submit').attr('disabled',true);
+			}
+		});
+		$('#submit').on('click',function(){
+		    $('.error').remove();
+		    var checker = true;
+			//公司名称
+		    var company = $('input[name="com_name"]').val();
+		    $('input[name="com_name"]').blur(function(){
+		        if($(this).val() ==''){
+                    $(this).parent().next().remove();
+                    $('input[name="com_name"]').parents('li').append(notice('请输入企业名称'));
+                    checker = false;
+                }else{
+                    $(this).parent().next().remove();
+                }
+
+            });
+		    if(company == ''){
+                $('input[name="com_name"]').parents('li').append(notice('请输入企业名称'));
+                checker = false;
+			}
+			//公司电话
+			var mobile = $('input[name="mobile"]').val();
+            $('input[name="mobile"]').blur(function(){
+                if($(this).val() ==''){
+                    $(this).parent().next().remove();
+                    $('input[name="mobile"]').parents('li').append(notice('请输入公司电话'));
+                    checker = false;
+                }else if(!isPhoneNumber($(this).val())){
+                    $(this).parent().next().remove();
+                    $('input[name="mobile"]').parents('li').append(notice('公司电话格式错误'));
+                    checker = false;
+                }else{
+                    $(this).parent().next().remove();
+                }
+
+            });
+		    if(mobile !==""){
+				   if(!isPhoneNumber(mobile)){
+                       $('input[name="mobile"]').parents('li').append(notice('公司电话格式错误'));
+                       checker = false;
+
+				   }
+			}else{
+                       $('input[name="mobile"]').parents('li').append(notice('请输入公司电话'));
+                       checker = false;
+			}
+			//传真
+			var fax = $('input[name="fax"]').val();
+            $('input[name="fax"]').blur(function(){
+                if($(this).val() ==''){
+                    $(this).parent().next().remove();
+                    $('input[name="fax"]').parents('li').append(notice('请输入公司传真'));
+                    checker = false;
+                }else if(!isFax($(this).val())){
+                    $(this).parent().next().remove();
+                    $('input[name="fax"]').parents('li').append(notice('传真格式错误'));
+                    checker = false;
+                }else{
+                    $(this).parent().next().remove();
+                }
+            });
+		    if(fax !==""){
+					if(!isFax(fax)){
+                        $('input[name="fax"]').parents('li').append(notice('传真格式错误'));
+                        checker = false;
+
+					}
+			}else{
+					$('input[name="fax"]').parents('li').append(notice('请输入公司传真'));
+					checker = false;
+			}
+			//邮箱
+            var email = $('input[name="email"]').val();
+		    $('input[name="email"]').blur(function(){
+                    if($(this).val() ==''){
+                        $(this).parent().next().remove();
+                        $('input[name="email"]').parents('li').append(notice('请输入公司邮箱'));
+                        checker = false;
+                    }else if(!isEmail($(this).val())){
+                        $(this).parent().next().remove();
+                        $('input[name="email"]').parents('li').append(notice('邮箱格式错误'));
+                        checker = false;
+                    }else {
+                        $(this).parent().next().remove();
+                    }
+            });
+            if(email !==""){
+                if(!isEmail(email)){
+                    $('input[name="email"]').parents('li').append(notice('邮箱格式错误'));
+                    checker = false;
+
+                }
+            }else{
+                $('input[name="email"]').parents('li').append(notice('请输入公司邮箱'));
+                checker = false;
+            }
+            //网址
+//            var url = $('input[name="url"]').val();
+//            $('input[name="url"]').blur(function(){
+//                    if($(this).val() ==''){
+//                        $(this).parent().next().remove();
+//                        $('input[name="url"]').parents('li').append(notice('请输入公司网址'));
+//                        checker = false;
+//                    }else if(!isUrl($(this).val())){
+//                        $(this).parent().next().remove();
+//                        $('input[name="url"]').parents('li').append(notice('网址格式错误'));
+//                        checker = false;
+//                    }else{
+//                        $(this).parent().next().remove();
+//                    }
+//            });
+//            if(url !==""){
+//                if(!isUrl(url)){
+//                    $('input[name="url"]').parents('li').append(notice('网址格式错误'));
+//                    checker = false;
+//
+//                }
+//            }else{
+//                $('input[name="url"]').parents('li').append(notice('请输入公司网址'));
+//                checker = false;
+//            }
+			
+            //公司地址
+			var address = $('input[name="address"]').val();
+            $('input[name="address"]').blur(function(){
+                    if($(this).val() ==''){
+                        $(this).parent().next().remove();
+                        $('input[name="address"]').parents('li').append(notice('请输入公司地址'));
+                        checker = false;
+                    }else{
+                        $(this).parent().next().remove();
+                    }
+
+            });
+            if(address ==''){
+                $('input[name="address"]').parents('li').append(notice('请输入公司地址'));
+                checker = false;
+			}
+			//模板名称
+            if($('input[name="is_com"]').is(':checked')){
+                if(input[name="template_name"].val()==''){
+                    $('input[name="template_name"]').parents('li').append(notice('请输入模板名称'));
+                    checker = false;
+				}
+
+			}
+			//联系人姓名
+            var name = $('input[name="name"]').val();
+            $('input[name="name"]').blur(function(){
+                    if($(this).val() ==''){
+                        $(this).parent().next().remove();
+                        $('input[name="name"]').parents('li').append(notice('请输入联系人姓名'));
+                        checker = false;
+                    }else{
+                        $(this).parent().next().remove();
+                    }
+
+            });
+            if(name ==''){
+                $('input[name="name"]').parents('li').append(notice('请输入联系人姓名'));
+                checker = false;
+            }
+            //联系人手机
+			var telephone =$('input[name="telephone"]').val();
+            $('input[name="telephone"]').blur(function(){
+                    if($(this).val() ==''){
+                        $(this).parent().next().remove();
+                        $('input[name="telephone"]').parents('li').append(notice('请输入联系人手机'));
+                        checker = false;
+                    }else if(!isMobile($(this).val())){
+                        $(this).parent().next().remove();
+                        $('input[name="telephone"]').parents('li').append(notice('联系人手机格式错误'));
+                        checker = false;
+                    }else{
+                        $(this).parent().next().remove();
+                    }
+            });
+            if(telephone !==""){
+                if(!isMobile(telephone)){
+                    $('input[name="telephone"]').parents('li').append(notice('联系人手机格式错误'));
+                    checker = false;
+
+                }
+            }else{
+                $('input[name="telephone"]').parents('li').append(notice('请输入联系人手机'));
+                checker = false;
+            }
+            //备注
+//			var description = $('textarea[name="description"]').val();
+//            $('textarea[name="description"]').blur(function(){
+//                    if($(this).val() ==''){
+//                        $(this).parent().next().remove();
+//                        $('input[name="address"]').parents('li').append(notice('请输入备注信息'));
+//                        checker = false;
+//                    }else{
+//                        $(this).parent().next().remove();
+//                    }
+//
+//            });
+//            if(description ==''){
+//                $('textarea[name="description"]').parents('li').append(notice('请输入备注信息'));
+//                checker = false;
+//			}
+			if(!checker){
+		        $('span.error:first').parent().children().children().focus();
+			    return false;
+			}
+		});
+	</script>

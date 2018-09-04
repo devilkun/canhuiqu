@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/base.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="__HOME_CSS__/reveal.css" />
+    <title>{$list.name}</title>
+    <link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <!--[if lt IE 9]><script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script><![endif]-->
+</head>
+
+<body style="background:  #ffffff;">
+{include file="Public:nav" /}
+<style>
+    .not-support {
+        font-size: 24px;
+        min-height: 300px;
+        text-align: center;
+        line-height: 300px;
+    }
+
+    .not-support span {
+        color: #fd715a;
+    }
+</style>
+<div class="top">
+    <section class="banner-ny clearfix"></section>
+</div>
+<section class="details-titBox">
+    <div class="details-mid" >
+        <div class="details-left fl">
+            <a href="{:url('Detail/index',['id' => $list['id']])}">展会详情</a>
+            <a href="{:url('Booth/book',['id' => $list['id']])}" >展位预定</a>
+            <a href="{:url('Pt/book',['id' => $list['id']])}" class="left-actvie">拼团行程</a>
+            <a href="{:url('CustomizeStroke/book',['id' => $list['id']])}">定制行程</a>
+            <a href="{:url('BoothConstruction/book',['id' => $list['id']])}">展台搭建</a>
+            <a href="{:url('ExhibitsTransportation/book',['id' => $list['id']])}">展品运输</a>
+            <a href="#">展会票务</a>
+        </div>
+        <!-- <p class="fr tel">
+                热线电话：010-12345678
+            </p> -->
+    </div>
+</section>
+<section class="content clearfix">
+    <!--流程-->
+    <div class="bar" >
+        <div class="text-yd">
+            <font style="color:#f7f8fb">预订流程</font>
+        </div>
+        <ul class="nav nav-pills nav-justified step step-round" data-step="6">
+            <li>
+                <a>选择供应商</a>
+            </li>
+            <li>
+                <a>选择展位类型和面积</a>
+            </li>
+            <li>
+                <a>填写参展企业信息</a>
+            </li>
+            <li>
+                <a>选择支付</a>
+            </li>
+            <li>
+                <a>供应商确认</a>
+            </li>
+            <li>
+                <a>预定完成</a>
+            </li>
+        </ul>
+    </div>
+    <div class="con-left fl">
+        <div class="zh-box">
+            <h2>{$list.name}({$list.ename})</h2>
+            <p>时间：{$list.startime|date="Y.m.d",###} - {$list.endtime|date="Y.m.d",###}</p>
+            <p>地点：{$district[0][$list['city_id']]['country']} • {$district[0][$list['city_id']]['city']} • {$list.venues}</p>
+        </div>
+        <div class="zh-company clearfix">
+            <div class="company-title">
+                <div class="tit-01 tit-choose"><a href="#xc">行程介绍</a></div>
+                <div class="tit-01"><a href="#fy">费用说明</a></div>
+                <div class="tit-01"><a href="#xz">预定须知</a></div>
+            </div>
+            <div class="trip-box" id="xc">
+                <div class="trip-tit">
+                    <span>参考行程</span>
+                </div>
+                <div id="timeline-wrapper">
+                    <div id="timeline">
+                        {volist name="stroke" id="stroke"}
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                {$stroke.schedule_type}
+                            </div>
+                            <div class="timeline-content">
+                                <h4>{$stroke.setoff_city}-{$stroke.destination_city}（{$stroke.travel_date|date='Y年m月d日',###}）</h4>
+                                <p class="trip-text">{$stroke.travel_schedule_desc}</p>
+                                <span class="btn">用餐：{$stroke.meal}</span>
+                                <span class="btn">住宿：{$stroke.stay}</span>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+
+            </div>
+            <div class="cost" id="fy">
+                <div class="trip-tit">
+                    <span>费用说明</span>
+                </div>
+                <div class="cost-text">
+                    <!--<p class="clearfix">-->
+                    <!--<b class="fl">机票：</b>-->
+                    <!--<span class="fl">-->
+                    <!--出发口岸城市&#45;&#45;胡志明往返含税机票  (单程转机次数≤1次)<br />-->
+                    <!--*口岸城市为：广州。详见出团通知-->
+                    <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix">-->
+                    <!--<b class="fl">酒店：</b>-->
+                    <!--<span class="fl">-->
+                    <!--星级酒店(或同级别精品酒店)<br />-->
+                    <!--*考虑到行程安排、酒店房型库存等原因，实际预定时可能会选用其他同级别精品酒店，双人标准间。夫妻可提供大床房。-->
+                    <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix">-->
+                    <!--<b class="fl">交通：</b>-->
+                    <!--<span class="fl">-->
+                    <!--全程豪华大巴，专业司机-->
+                    <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix">-->
+                    <!--<b class="fl">餐饮：</b>-->
+                    <!--<span class="fl">-->
+                    <!--丰富的当地特色餐、八菜一汤的商务团餐标-->
+                    <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix">-->
+                    <!--<b class="fl">签证：</b>-->
+                    <!--<span class="fl">-->
+                    <!--签证服务费，美国签证-全国领区(商务签证，代办，含邀请函）-->
+                    <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix">-->
+                    <!--<b class="fl">保险：</b>-->
+                    <!--<span class="fl">-->
+                    <!--公共交通意外险，境外旅游保险-->
+                    <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="clearfix">-->
+                    <!--<b class="fl">其他：</b>-->
+                    <!--<span class="fl">-->
+                    <!--接送机，导游费用。-->
+                    <!--</span>-->
+                    <!--</p>-->
+                    <!--<p class="red-sm">说明：当地参团不包含机票及签证费用。</p>-->
+                </div>
+            </div>
+            <div class="yd-sm" id="xz">
+                <div class="trip-tit">
+                    <span>预定说明</span>
+                </div>
+                <div class="ydsm-text">
+                    <!--<p class="red-sm"><b>报名截止日期</b></p>-->
+                    <!--<p>2018年4月01日前可直接在网站预定<br />-->
+                    <!--2018年4月01日之后，请联系我公司客服确定。如签证、机票、酒店满足要求、可签约预定。</p>-->
+                    <!--<p class="red-sm">备注：当地参团不受上述时间限制。</p>-->
+                    <!--<p class="red-sm"><b>预定须知</b></p>-->
+                    <!--<p>1、为了确保您能够按时出行，产品确认后请在48小时内付款，同时请按要求尽快提供参展所需的材料并签订参展合同。 </p>-->
+                    <!--<p>2、团队报价按2人入住1间房核算，如出现单男单女，则尽量安排与其他同性别团友拼房或加床；若客人无需安排或无法安排， 请补齐单房差以享用单人房间。 </p>-->
+                    <!--<p>3、团队机票一经开出，不得更改，不得签转，不得退票；另飞行时间、车程时间以当日实际所时间为准。 </p>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="con-right fr pre-book" style="margin-top: 15px !important;">
+        <div class="setout-yd" >
+            <h4>{$list.name}</h4>
+            <h4>({$list.ename})</h4>
+            <p><span>价格：￥<b>{if condition='$pt.discount_rate eq 0'}{$pt.adult_price|number_format}{else/}{$pt.adult_price*$pt.discount_rate/100|number_format}{/if}</b></span><span>单间差：￥<b>{$pt.room_difference}</b></span></p>
+            <p>预计出发城市：{$pt.setoff_city}</p>                                                                                                                                                                              <p>目 的 地：{$pt.destination_city}</p>
+            <p>时间安排：{$pt.day_count}天{$pt.night_count}晚</p>
+            <p>出发日期：{$pt.setoff_date|date='Y.m.d',###}</p>
+            <p>
+            <ul class="ct-number clearfix">
+                <li>参团人数：</li>
+                <li class="number-box">
+                    <div class="ct-zj">-</div>
+                    <div><input type="text" value="1" /></div>
+                    <div class="ct-zj">+</div>
+                </li>
+            </ul>
+            </p>
+            <p>
+                <input type="radio" value="" />需要单间
+            </p>
+            <p class="money"><b>￥{if condition='$pt.discount_rate eq 0'}{$pt.adult_price|number_format}{else/}{$pt.adult_price*$pt.discount_rate/100|number_format}{/if}</b></p>
+            <p><a href="#">立即预定</a></p>
+        </div>
+
+    </div>
+</section>
+<!--弹出窗口js-->
+{include file="Public:footer" /}
+<script type="text/javascript" src="__HOME_JS__/jquery.reveal.js"></script>
+<!--进度条-->
+<script type="text/javascript" src="__HOME_JS__/progressBar.js"></script>
+<!--进度条-->
+<script type="text/javascript" src="__HOME_JS__/lib.js"></script>
+<script src="__HOME_JS__/ZeroClipboard.js"></script>
+<script type="text/javascript" src="__HOME_JS__/fol_nav.js"></script>

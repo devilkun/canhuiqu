@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;"/>
+<title>参会去</title>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="__HOME_CSS__/weixin/style.css" type="text/css" rel="stylesheet" />
+
+</head>
+
+<body>
+<div class="whole">
+    <!--头部轮播-->
+    <div id="carousel" class="carousel">
+        <div class="hd">
+            <ul></ul>
+        </div>
+      <div class="bd">
+            <ul>
+                <li><a href="details.html"><img _src="__HOME_IMG__/weixin/paris.jpg" src="image/blank.png" /></a></li>
+                <li><a href="details.html"><img _src="__HOME_IMG__/weixin/THAIFEX.jpg" src="image/blank.png"/></a></li>
+            </ul>
+      </div>
+        <div class="search sear-show">
+             <img src="__HOME_IMG__/weixin/search.png" />
+        </div>
+        <div class="search-new">
+            <input type="text" value="" placeholder="请输入您要搜索的内容" />
+             <div class="sear"><img src="__HOME_IMG__/weixin/search.png" /></div>
+            <div class="close"><i class="fa fa-forward"></i></div>
+        </div>
+    </div>
+    <!--头部轮播END-->
+    
+    <div class="movie">
+      <ul>
+        {volist name="list" id="vo"}
+            <li>
+                <a href="details.html">
+                    <span class="tag">9.1</span>
+                    <div class="posters">
+                       <img src="{$vo.picture|get_file_path}" width="220px" height="228px" />
+                    </div>
+                    <div class="post-content">
+                        <div class="left-con">
+                           <p class="tit">
+                                <small>{$vo.name}</small> 
+                            </p>
+                             <p class="eng">展会地点：{$vo.districtname}</p>
+                            <p class="tim">展会时间：{$vo.startime|date="Y.m.d",###}~{$vo.endtime|date="Y.m.d",###}</p>
+                        </div>
+                        <div class="right-btn">
+                            <div class="ticket-btn">预订</div>
+                        </div>
+                    </div>
+                 </a>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    
+</div>
+<script type="text/javascript" src="__HOME_JS__/weixin/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="__HOME_JS__/weixin/phone.js" ></script>
+<script type="text/javascript" src="__HOME_JS__/weixin/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="__HOME_JS__/weixin/movie.js"></script>
+<script type="text/javascript">
+    TouchSlide({ 
+        slideCell:"#carousel",
+        titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        mainCell:".bd ul", 
+        effect:"left", 
+        autoPlay:true,//自动播放
+        autoPage:true, //自动分页
+        switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="__HOME_CSS__/style-news.css"/>
+	<link rel="stylesheet" type="text/css" href="__HOME_CSS__/share.css"/>
+	<link rel="stylesheet" type="text/css" href="__HOME_CSS__/base.css"/><!--行程安排-->
+	<link rel="stylesheet" type="text/css" href="__HOME_CSS__/jquery.step.css"/>
+	<link rel="stylesheet" type="text/css" href="__HOME_CSS__/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="__HOME_CSS__/sweetalert2.min.css" />
+	<title>支付信息</title>
+	<link rel="shortcut icon" href="__HOME_IMG__/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<!--[if lt IE 9]>
+	<script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script>
+	<![endif]-->
+</head>
+	<body style="background:  #ffffff;">
+	{include file="Public:nav" /}
+	<div class="top">
+		<section class="banner-ny clearfix"></section>
+	</div>
+	<section class="details-titBox">
+		<div class="details-mid">
+			<div class="details-left fl">
+				<a href="{:url('Detail/index',['id' => $list['id']])}">展会详情</a>
+				<a href="{:url('Booth/book',['id' => $list['id']])}" class="left-actvie">展位预定</a>
+				<a href="{:url('Pt/book',['id' => $list['id']])}">拼团行程</a>
+				<a href="{:url('CustomizeStroke/book',['id' => $list['id']])}">定制行程</a>
+				<a href="{:url('BoothConstruction/book',['id' => $list['id']])}">展台搭建</a>
+				<a href="{:url('ExhibitsTransportation/book',['id' => $list['id']])}">展品运输</a>
+				<a href="#">展会票务</a>
+			</div>
+			<!-- <p class="fr tel">
+                    热线电话：010-12345678
+                </p> -->
+		</div>
+	</section>
+			<section class="content clearfix">
+				<!--流程-->
+		    	<div class="bar">
+		    		<div class="text-yd"><font style="color:#f7f8fb">预订流程</font></div>
+					<ul class="nav nav-pills nav-justified step step-round" data-step="6">
+						<li>
+							<a>选择供应商</a>
+						</li>
+						<li>
+							<a>查看详情</a>
+						</li>
+						<li>
+							<a>确定供应商</a>
+						</li>
+						<li>
+							<a>填写随团人员信息</a>
+						</li>
+						<li>
+							<a>选择支付</a>
+						</li>
+						<li>
+							<a>预定完成</a>
+						</li>
+					</ul>
+				</div>
+				<div class="con-left fl">
+					<!--流程-->
+					<div class="step-body" id="myStep">
+						<div class="step-header" style="width:100%">
+							<ul>
+								<li><p>参展信息填写</p></li>
+								<li><p>选择支付方式</p></li>
+								<li><p>确认完成</p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="enterprise" style="margin-top: 50px;" class="clearfix">
+						<ul class="zf-ul clearfix">
+							<li>
+								<div class="zf-radio">
+									<input type="radio" name="payment" value="1" disabled/>
+								</div>
+								<div class="zf-box">
+									<img src="__HOME_IMG__/zfb.png">
+								</div>
+							</li>
+							<li>
+								<div class="zf-radio">
+									<input type="radio" name="payment" value="2" checked/>
+								</div>
+								<div class="zf-box">
+									线下支付
+								</div>
+							</li>
+
+
+						</ul>
+						<div class="wx-ts" style="border:2px solid #ff8a00;">
+							<div style="margin-left: 5px">
+							<b>温馨提示：</b>
+							<p>境外展会可享受国家50%-100%的展位费补贴，部分省市可享受最低50%的机票及境外生活补助</p>
+							<b>收款单位：能展国际展览有限公司  </b>
+							<p>1.如果选择线下支付,付款通知将由参会去提供<br />2.如果选择预付,在服务商确认展位后<br />请在5个工作日内支付尾款,谢谢您的配合</p>
+
+							</div>
+						</div>
+						<form id="booth-pay" method="post">
+							<input id="exid" type="hidden" value="{$data.ex_id}" name="ex_id"/>
+							<input id="boothid" type="hidden" value="{$data.booth_id}" name="booth_id"/>
+							<input id="indoorArea" name="indoor_area" type="hidden" value="{$data.indoor_area}">
+							<input id="StandArea" name="stand_area" type="hidden" value="{$data.stand_area}">
+							<input id="outdoorArea" name="outdoor_area" type="hidden" value="{$data.outdoor_area}">
+							<input id="firstBooth" name="first_booth" type="hidden" value="{$data.first_booth}">
+							<input id="secondBooth" name="second_booth" type="hidden" value="{$data.second_booth}">
+							<input id="thirdBooth" name="third_booth" type="hidden" value="{$data.third_booth}">
+							<input id="companyId" name="company_id" type="hidden" value="{$data.company_id}">
+							<input id="contactsId" name="contacts_id" type="hidden" value="{$data.contacts_id}">
+							<input id="payType" name="payType" value="offline" type="hidden">
+							<input id="total" name="total" value="{$data.stand_area*$booth.stand_price}" type="hidden">
+							<input type="hidden" name="__token__" value="{$Request.token}" />
+						</form>
+						<a href="javascript:void(0)" class="zf-btn pay" style="margin-top: 5px;text-align:center ">提交</a>
+					</div>
+
+				</div>
+				<div class="con-right fr pre-book" style="margin-top: 15px !important;">
+					<div class="setout-xq">
+						<b class="setout-tit">展会名称：</b>
+						<div class="xq-box">
+							<b>{$list.name}({$list.ename})</b>
+							<p>时间：{$list.startime|date='Y年m月d日',###} - {$list.endtime|date='m月d日',###}</p>
+							<p>地点：{$district[0][$list['city_id']]['country']} • {$district[0][$list['city_id']]['city']} • {$list.venues}</p>
+						</div><br />
+						<b class="setout-tit">预定详情：</b>
+						<div class="xq-box">
+							<p>标准展位：<span>{$data.stand_area}.㎡（¥{$booth.stand_price}/㎡）</span></p>
+							<p>费用估计：<span style="font-size: 18px;">¥{$data.stand_area*$booth.stand_price|number_format}</span></p>
+							<p>费用说明：外币将按照订单生成时实时汇率换成人民币</p>
+						</div><br />
+						<b class="setout-tit">服务商信息：</b>
+						<div class="xq-box">
+							<p>公司名称：{$booth.company}</p>
+							<p>工作时间：周一至周五09:00-18:00</p>
+							<p>联系电话：{$booth.telephone}</p>
+						</div>
+						<a href="tencent://message/?uin={$booth.qq}">联系服务商</a>
+					</div>
+
+				</div>
+			</section>
+	<!--弹出窗口js-->
+	{include file="Public:footer" /}
+	<!--<script type="text/javascript" src="__HOME_JS__/jquery.reveal.js"></script>-->
+	<!--进度条-->
+	<script type="text/javascript" src="__HOME_JS__/progressBar.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/sweetalert2.min.js"></script>
+	<!--进度条-->
+	<script type="text/javascript" src="__HOME_JS__/lib.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/fol_nav.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/verification.js"></script>
+	<script type="text/javascript" src="__HOME_JS__/jquery.step.js"></script>
+<script>
+	$(function() {
+		var step= $("#myStep").step({
+			animate:true,
+			initStep:2,
+			speed:500
+		});
+		$("#preBtn").click(function(event) {
+			var yes=step.preStep();
+
+		});
+		$("#applyBtn").click(function(event) {
+			var yes=step.nextStep();
+
+		});
+		$("#submitBtn").click(function(event) {
+			var yes=step.nextStep();
+
+
+		});
+		$("#goBtn").click(function(event) {
+			var yes=step.goStep(3);
+
+		});
+	});
+	//提交处理
+	$('.pay').on('click',function(){
+		   $.post('/booth/choose',$('#booth-pay').serialize(),function(status){
+			         if(status==1){
+                         swal({
+                             title: '预定成功!',
+                             text: '我们将在24小时内为您提供付款通知,请按照付款通知相关信息进行付款,并在付款后在我的订单中上传付款凭证,谢谢配合!',
+                             type: 'success',
+                             confirmButtonText: '确认'
+                         }).then(function(isConfirm) {
+                             if(isConfirm===true){
+                                 $(location).attr('href','/manager/myorder');
+							 }
+						 });
+					 }else{
+                         swal(
+                             '支付失败!',
+                             '请重新完成订单!',
+                             'error'
+                         );
+                         return false;
+					 }
+		   },'json');
+	});
+</script>
+
